@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.LearningManagement", "App.LearningManagement\App.LearningManagement.csproj", "{E65616F5-6D94-488E-918A-1E304D269793}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.LearningManagement", "Library.LearningManagement\Library.LearningManagement.csproj", "{FF880C32-8EDA-4606-A67E-B9BFC18A2DF9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E65616F5-6D94-488E-918A-1E304D269793}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E65616F5-6D94-488E-918A-1E304D269793}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E65616F5-6D94-488E-918A-1E304D269793}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E65616F5-6D94-488E-918A-1E304D269793}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF880C32-8EDA-4606-A67E-B9BFC18A2DF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF880C32-8EDA-4606-A67E-B9BFC18A2DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF880C32-8EDA-4606-A67E-B9BFC18A2DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF880C32-8EDA-4606-A67E-B9BFC18A2DF9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {009287C8-DFC8-44E2-AAA1-DFCFDC5A11F5}
+	EndGlobalSection
+EndGlobal
