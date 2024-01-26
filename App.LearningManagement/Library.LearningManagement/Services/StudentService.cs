@@ -9,7 +9,7 @@ namespace Library.LearningManagement.Services
 {
     public class StudentService
     {
-        public List<Person> studentList { get; set; } = new List<Person>();
+        public List<Person> studentList = new List<Person>();
 
         // Function to add each student to our list
         public void Add(Person student)
