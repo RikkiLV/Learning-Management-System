@@ -12,6 +12,7 @@ namespace App.LearningManagement.Helpers
     {
         private StudentService studentService = new StudentService();
 
+        // Function to create the student record by calling function Add() from StudentService.cs
         public void CreateStudentRecord()
         {
             // Takes user-input for the student variables
@@ -49,7 +50,13 @@ namespace App.LearningManagement.Helpers
 
             // Each student is added to studentList 
             studentService.Add(student);
-            studentService.studentList.ForEach(Console.WriteLine);
+           
+        }
+
+        // Function to list the students by calling function ListStudents() from StudentService.cs
+        public void ListStudents()
+        {
+            studentService.Students.ForEach(Console.WriteLine);
         }
     }
 }

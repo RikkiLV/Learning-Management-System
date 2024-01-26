@@ -11,9 +11,18 @@ namespace Library.LearningManagement.Services
     {
         public List<Person> studentList { get; set; } = new List<Person>();
 
+        // Function to add each student to our list
         public void Add(Person student)
         {
             studentList.Add(student);
         }
+
+        // Function to list the students in our list 
+        public List<Person> Students
+        {
+            get { return studentList; }
+        }
+
+       
     }
 }
