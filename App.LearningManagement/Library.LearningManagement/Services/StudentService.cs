@@ -23,6 +23,10 @@ namespace Library.LearningManagement.Services
             get { return studentList; }
         }
 
-       
+        // Function allows for user to search a student in read-only
+       public IEnumerable<Person> Search(string query)
+       {
+            return studentList.Where(s => s.Name.ToUpper().Contains(query.ToUpper()));
+       }
     }
 }

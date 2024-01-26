@@ -58,5 +58,14 @@ namespace App.LearningManagement.Helpers
         {
             studentService.Students.ForEach(Console.WriteLine);
         }
+
+        // Function to search students by name by calling function Search() from StudentService.cs
+        public void SearchStudent()
+        {
+            Console.WriteLine("Enter a query:");
+            var query = Console.ReadLine() ?? string.Empty;
+
+            studentService.Search(query).ToList().ForEach(Console.WriteLine);
+        }
     }
 }
