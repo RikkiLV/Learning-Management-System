@@ -21,6 +21,13 @@ namespace Library.LearningManagement.Services
         {
             get { return courseList; }
         }
+        // Function allows for user to search a course in read-only
+        public IEnumerable<Course> Search(string query)
+        {
+            return Courses.Where(s => s.Name.ToUpper().Contains(query.ToUpper()) 
+            || s.Description.ToUpper().Contains(query.ToUpper())
+            || s.Code.ToUpper().Contains(query.ToUpper()));
+        }
 
     }
 }
