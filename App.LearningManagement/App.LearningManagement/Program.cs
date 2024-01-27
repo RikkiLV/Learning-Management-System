@@ -1,6 +1,7 @@
 ﻿using System;
 using App.LearningManagement.Helpers;
 using Library.LearningManagement.Models;
+using Library.LearningManagement.Services;
 
 namespace MyApp
 {
@@ -8,9 +9,9 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-
-            var studentHelper = new StudentHelper();
-            var courseHelper = new CourseHelper();
+            var studentSrvc = new StudentService();
+            var studentHelper = new StudentHelper(studentSrvc);
+            var courseHelper = new CourseHelper(studentSrvc);
 
             bool cont = true;
             var input = "1";

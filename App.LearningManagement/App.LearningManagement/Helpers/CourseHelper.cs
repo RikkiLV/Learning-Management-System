@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Library.LearningManagement.Models;
@@ -12,6 +13,11 @@ namespace App.LearningManagement.Helpers
     {
         private CourseService courseService = new CourseService();
         private StudentService studentService = new StudentService();
+
+        public CourseHelper(StudentService ssrvc)
+        {
+            studentService = ssrvc;
+        }
 
         public void AddOrUpdateCourse(Course? selectedCourse = null)
         {
@@ -31,7 +37,11 @@ namespace App.LearningManagement.Helpers
             while (continueAdding)
             {
                 studentService.Students.Where(s => !roster.Any(s2 => s2.Id == s.Id)).ToList().ForEach(Console.WriteLine);
-                var selection = Console.ReadLine() ?? string.Empty;
+                var selection = "Q";
+                if (!studentService.Students.Any(s => !roster.Any(s2 => s2.Id == s.Id)))
+                {
+                    selection = Console.ReadLine() ?? string.Empty;
+                }
 
                 if (selection.Equals("Q", StringComparison.InvariantCultureIgnoreCase))
                 {

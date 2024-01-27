@@ -12,7 +12,12 @@ namespace App.LearningManagement.Helpers
 {
     internal class StudentHelper
     {
-        private StudentService studentService = new StudentService();
+        private StudentService studentService;
+
+        public StudentHelper(StudentService ssrvc)
+        {
+            studentService = ssrvc;
+        }
 
         // Function to create the student record by calling function Add() from StudentService.cs
         public void AddOrUpdateStudent(Person? selectedStudent = null)
