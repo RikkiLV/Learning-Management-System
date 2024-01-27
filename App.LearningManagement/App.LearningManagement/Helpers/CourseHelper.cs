@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Library.LearningManagement.Models;
@@ -11,6 +12,12 @@ namespace App.LearningManagement.Helpers
     public class CourseHelper
     {
         private CourseService courseService = new CourseService();
+        private StudentService studentService = new StudentService();
+
+        public CourseHelper(StudentService ssrvc)
+        {
+            studentService = ssrvc;
+        }
 
         public void AddOrUpdateCourse(Course? selectedCourse = null)
         {
@@ -22,9 +29,38 @@ namespace App.LearningManagement.Helpers
             Console.WriteLine("What is the description of the course?");
             var description = Console.ReadLine() ?? string.Empty;
 
+            // Add students to courses
+            Console.WriteLine("Which students should be enrolled in this course? ('Q' to quit)");
+
+            var roster = new List<Person>();
+            bool continueAdding = true;
+            while (continueAdding)
+            {
+                studentService.Students.Where(s => !roster.Any(s2 => s2.Id == s.Id)).ToList().ForEach(Console.WriteLine);
+                var selection = "Q";
+                if (!studentService.Students.Any(s => !roster.Any(s2 => s2.Id == s.Id)))
+                {
+                    selection = Console.ReadLine() ?? string.Empty;
+                }
+
+                if (selection.Equals("Q", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    continueAdding = false;
+                }
+                else
+                {
+                    var selectedId = int.Parse(selection);
+                    var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectedId);
+
+                    if (selectedStudent != null)
+                    {
+                        roster.Add(selectedStudent);
+                    }
+
+                }
+            }
   
             // User-inputs are assigned to a new Course objects if user is just created
-
             bool isNewCourse = false;
             if (selectedCourse == null)
             {
@@ -34,10 +70,12 @@ namespace App.LearningManagement.Helpers
             }
 
             // User can change Course record
-
+            // Course variables
             selectedCourse.Code = code;
             selectedCourse.Name = name;
             selectedCourse.Description = description;
+            selectedCourse.Roster = new List<Person>();
+            selectedCourse.Roster.AddRange(roster);
 
             if (isNewCourse)
             courseService.Add(selectedCourse);
