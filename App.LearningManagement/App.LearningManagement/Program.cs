@@ -21,7 +21,8 @@ namespace MyApp
                 Console.WriteLine("3. Search for a student");
                 Console.WriteLine("4. List all enrolled students");
                 Console.WriteLine("5. Add a new course");
-                Console.WriteLine("6. Exit");
+                Console.WriteLine("6. List all course");
+                Console.WriteLine("7. Exit");
                 input = Console.ReadLine();
 
                 if (int.TryParse(input, out int result))
@@ -31,7 +32,8 @@ namespace MyApp
                     else if (result == 3) studentHelper.SearchStudent();
                     else if (result == 4) studentHelper.ListStudents();
                     else if (result == 5) courseHelper.CreateCourseRecord();
-                    else if (result == 6) cont = false;
+                    else if (result == 6) courseHelper.ListCourse();
+                    else if (result == 7) cont = false;
 
                 }
             }

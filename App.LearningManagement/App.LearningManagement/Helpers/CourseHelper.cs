@@ -31,8 +31,12 @@ namespace App.LearningManagement.Helpers
             };
 
             courseService.Add(course);
+        }
 
-            courseService.courseList.ForEach(Console.WriteLine);
+        // Function to list the students by calling function ListStudents() from CourseService.cs
+        public void ListCourse()
+        {
+            courseService.Courses.ForEach(Console.WriteLine);
         }
     }
 }
