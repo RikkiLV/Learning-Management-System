@@ -12,11 +12,11 @@ namespace App.LearningManagement.Helpers
     public class CourseHelper
     {
         private CourseService courseService = new CourseService();
-        private StudentService studentService = new StudentService();
+        private StudentService studentService;
 
-        public CourseHelper(StudentService ssrvc)
+        public CourseHelper()
         {
-            studentService = ssrvc;
+            studentService = StudentService.Current;
         }
 
         public void AddOrUpdateCourse(Course? selectedCourse = null)
@@ -31,17 +31,12 @@ namespace App.LearningManagement.Helpers
 
             // Add students to courses
             Console.WriteLine("Which students should be enrolled in this course? ('Q' to quit)");
-
             var roster = new List<Person>();
             bool continueAdding = true;
             while (continueAdding)
             {
                 studentService.Students.Where(s => !roster.Any(s2 => s2.Id == s.Id)).ToList().ForEach(Console.WriteLine);
-                var selection = "Q";
-                if (!studentService.Students.Any(s => !roster.Any(s2 => s2.Id == s.Id)))
-                {
-                    selection = Console.ReadLine() ?? string.Empty;
-                }
+                var selection = Console.ReadLine() ?? string.Empty;
 
                 if (selection.Equals("Q", StringComparison.InvariantCultureIgnoreCase))
                 {

@@ -14,9 +14,9 @@ namespace App.LearningManagement.Helpers
     {
         private StudentService studentService;
 
-        public StudentHelper(StudentService ssrvc)
+        public StudentHelper()
         {
-            studentService = ssrvc;
+            studentService = StudentService.Current;
         }
 
         // Function to create the student record by calling function Add() from StudentService.cs
