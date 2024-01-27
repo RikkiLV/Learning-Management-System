@@ -55,6 +55,38 @@ namespace App.LearningManagement.Helpers
 
                 }
             }
+
+            // Create an assignment during creation and updating of courses
+            Console.WriteLine("Would you like to add assignments? (Y/N)");
+            var assignResponse = Console.ReadLine() ?? "N";
+            var assignments = new List<Assignment>();
+            if(assignResponse.Equals("Y", StringComparison.InvariantCultureIgnoreCase))
+            {
+                continueAdding = true;
+
+                while(continueAdding)
+                {
+                    Console.WriteLine("Name:");
+                    var nameAssign = Console.ReadLine() ?? string.Empty;
+                    Console.WriteLine("Description:");
+                    var descriptionAssign = Console.ReadLine() ?? string.Empty;
+                    Console.WriteLine("TotalPoints:");
+                    var totalpointsAssign = decimal.Parse(Console.ReadLine() ?? "100");
+                    Console.WriteLine("DueDate:");
+                    var duedateAssign = DateTime.Parse(Console.ReadLine() ?? "01/01/1900");
+
+                    assignments.Add(new Assignment
+                    {
+                        Name = nameAssign,
+                        Description = descriptionAssign,
+                        TotalAvailablePoints = totalpointsAssign,
+                        DueDate = duedateAssign
+                    });
+                    Console.WriteLine("Add more courses? (Y/N)");
+                    assignResponse = Console.ReadLine() ?? "N";
+                    if (assignResponse.Equals("N", StringComparison.InvariantCultureIgnoreCase)) { continueAdding = false; }
+                }
+            }
   
             // User-inputs are assigned to a new Course objects if user is just created
             bool isNewCourse = false;
@@ -72,6 +104,8 @@ namespace App.LearningManagement.Helpers
             selectedCourse.Description = description;
             selectedCourse.Roster = new List<Person>();
             selectedCourse.Roster.AddRange(roster);
+            selectedCourse.Assignments = new List<Assignment>();
+            selectedCourse.Assignments.AddRange(assignments);
 
             if (isNewCourse)
             courseService.Add(selectedCourse);
