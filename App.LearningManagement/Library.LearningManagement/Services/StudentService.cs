@@ -9,10 +9,29 @@ namespace Library.LearningManagement.Services
 {
     public class StudentService
     {
-        public List<Person> studentList = new List<Person>();
+        public List<Person> studentList;
+        private static StudentService _instance;
 
-        // Function to add each student to our list
-        public void Add(Person student)
+        public StudentService()
+        {
+            studentList = new List<Person>();
+        }
+
+        public static StudentService Current
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new StudentService();
+                }
+                return _instance;
+            }
+        }
+
+
+    // Function to add each student to our list
+    public void Add(Person student)
         {
             studentList.Add(student);
         }
