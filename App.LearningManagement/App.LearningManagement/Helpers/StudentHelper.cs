@@ -13,10 +13,12 @@ namespace App.LearningManagement.Helpers
     internal class StudentHelper
     {
         private StudentService studentService;
+        private CourseService courseService;
 
         public StudentHelper()
         {
             studentService = StudentService.Current;
+            courseService = CourseService.Current;
         }
 
         // Function to create the student record by calling function Add() from StudentService.cs
@@ -92,6 +94,16 @@ namespace App.LearningManagement.Helpers
         public void ListStudents()
         {
             studentService.Students.ForEach(Console.WriteLine);
+
+            Console.WriteLine("Select a student:");
+            var selectionStr = Console.ReadLine();
+            var selectionInt = int.Parse(selectionStr ?? "0");
+
+            Console.WriteLine("Student Course List:");
+            courseService.Courses.Where(c => c.Roster.Any(s => s.Id == selectionInt)).ToList().ForEach(Console.WriteLine);
+
+
+
         }
 
         // Function to search students by name by calling function Search() from StudentService.cs
@@ -101,6 +113,12 @@ namespace App.LearningManagement.Helpers
             var query = Console.ReadLine() ?? string.Empty;
 
             studentService.Search(query).ToList().ForEach(Console.WriteLine);
+            var selectionStr = Console.ReadLine();
+            var selectionInt = int.Parse(selectionStr ?? "0");
+
+            Console.WriteLine("Student Course List:");
+            courseService.Courses.Where(c => c.Roster.Any(s => s.Id == selectionInt)).ToList().ForEach(Console.WriteLine);
+
         }
     }
 }
