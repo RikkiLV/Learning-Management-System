@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Library.LearningManagement.Models;
 using Library.LearningManagement.Services;
 
@@ -13,7 +15,7 @@ namespace App.LearningManagement.Helpers
         private StudentService studentService = new StudentService();
 
         // Function to create the student record by calling function Add() from StudentService.cs
-        public void CreateStudentRecord()
+        public void AddOrUpdateStudent(Person? selectedStudent = null)
         {
             // Takes user-input for the student variables
             Console.WriteLine("What is the id of the student?");
@@ -40,17 +42,45 @@ namespace App.LearningManagement.Helpers
             }
 
 
-            // User-inputs are assigned to Person objects
-            var student = new Person
-            {
-                Id = int.Parse(id),
-                Name = name ?? string.Empty,
-                Classification = classEnum
-            };
+            // User-inputs are assigned to a new Person objects if user is just created
 
-            // Each student is added to studentList 
-            studentService.Add(student);
-           
+            bool isCreate = false;
+            if (selectedStudent == null)
+            {
+                isCreate = true;
+                selectedStudent = new Person();
+               
+            }
+
+            // User can change Student record
+
+            selectedStudent.Id = int.Parse(id ?? "0");
+            selectedStudent.Name = name ?? string.Empty;
+            selectedStudent.Classification = classEnum;
+
+            // Each student is added to studentList is just created
+            if (isCreate)
+            {
+                studentService.Add(selectedStudent);
+            }
+
+        }
+
+        // Function to update the student using Id and called the CreateStudentRecord() function in order to do so
+        public void UpdateStudentRecord()
+        {
+            Console.WriteLine("Select a student to update:");
+            ListStudents();
+            var selectionStr = Console.ReadLine();
+
+            if(int.TryParse(selectionStr, out int selectionInt))
+            {
+               var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectionInt);
+                if (selectedStudent != null)
+                {
+                    AddOrUpdateStudent(selectedStudent);
+                }
+            }
         }
 
         // Function to list the students by calling function ListStudents() from StudentService.cs
