@@ -37,8 +37,16 @@ namespace MyApp
                     else if (result == 4) studentHelper.SearchStudent();
                     else if (result == 5) courseHelper.AddOrUpdateCourse();
                     else if (result == 6) courseHelper.UpdateCourseRecord();
-                    else if (result == 7) courseHelper.ListCourse();
-                    else if (result == 8) courseHelper.SearchCourse();
+                    else if (result == 7)
+                    {
+                        courseHelper.SearchCourse();
+                    }
+                    else if (result == 8)
+                    {
+                        Console.WriteLine("Enter a query:");
+                        var query = Console.ReadLine() ?? string.Empty;
+                        courseHelper.SearchCourse(query);
+                    }
                     else if (result == 9) cont = false;
 
                 }
