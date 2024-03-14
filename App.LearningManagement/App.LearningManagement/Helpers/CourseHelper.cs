@@ -111,17 +111,12 @@ namespace App.LearningManagement.Helpers
             courseService.Add(selectedCourse);
         }
 
-        // Function to list the students by calling function ListCourse() from CourseService.cs
-        public void ListCourse()
-        {
-            courseService.Courses.ForEach(Console.WriteLine);
-        }
 
         // Function to update the student using Id and called the AddOrUpdateCourse() function in order to do so
         public void UpdateCourseRecord()
         {
             Console.WriteLine("Enter the code for the course to update:");
-            ListCourse();
+            SearchCourse();
 
             var selectionStr = Console.ReadLine();
 
@@ -134,12 +129,25 @@ namespace App.LearningManagement.Helpers
             
         }
         // Function to search courses by code by calling function Search() from CourseService.cs
-        public void SearchCourse()
+        public void SearchCourse(string? query = null)
         {
-            Console.WriteLine("Enter a query:");
-            var query = Console.ReadLine() ?? string.Empty;
+            if(string.IsNullOrEmpty(query))
+            {
+                courseService.Courses.ForEach(Console.WriteLine);
+            } else
+            {
+                courseService.Search(query).ToList().ForEach(Console.WriteLine);
+            }
 
-            courseService.Search(query).ToList().ForEach(Console.WriteLine);
+            Console.WriteLine("Select a course:");
+            var code = Console.ReadLine() ?? string.Empty;
+
+            var selectCourse = courseService.Courses.FirstOrDefault(c => c.Code.Equals(code, StringComparison.InvariantCultureIgnoreCase));
+            if (selectCourse != null)
+            {
+                Console.WriteLine(selectCourse.DetailDisplay);
+            }
+
         }
     }
 }
