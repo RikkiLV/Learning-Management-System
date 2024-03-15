@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "App.LearningManagement", "App.LearningManagement\App.LearningManagement.csproj", "{E65616F5-6D94-488E-918A-1E304D269793}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "App.LearningManagement", "App.LearningManagement\App.LearningManagement.csproj", "{E65616F5-6D94-488E-918A-1E304D269793}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library.LearningManagement", "Library.LearningManagement\Library.LearningManagement.csproj", "{FF880C32-8EDA-4606-A67E-B9BFC18A2DF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.LearningManagement", "Library.LearningManagement\Library.LearningManagement.csproj", "{FF880C32-8EDA-4606-A67E-B9BFC18A2DF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAUI.LearningManagement", "MAUI.LearningManagement\MAUI.LearningManagement.csproj", "{C8DF06A4-C64A-4AC7-B5ED-F709699FF372}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,12 @@ Global
 		{FF880C32-8EDA-4606-A67E-B9BFC18A2DF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF880C32-8EDA-4606-A67E-B9BFC18A2DF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF880C32-8EDA-4606-A67E-B9BFC18A2DF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8DF06A4-C64A-4AC7-B5ED-F709699FF372}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8DF06A4-C64A-4AC7-B5ED-F709699FF372}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8DF06A4-C64A-4AC7-B5ED-F709699FF372}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C8DF06A4-C64A-4AC7-B5ED-F709699FF372}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8DF06A4-C64A-4AC7-B5ED-F709699FF372}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8DF06A4-C64A-4AC7-B5ED-F709699FF372}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
