@@ -47,10 +47,10 @@ namespace Library.LearningManagement.Services
 
         
 
-        // Function allows for user to search a student in read-only
-       public IEnumerable<Student?> Search(string query)
-       {
-            return Students.Where(a => (a != null) && a.Name.ToUpper().Contains(query.ToUpper()));
-       }
+    // Function allows for user to search a student in read-only
+    public IEnumerable<Student?> Search(string query)
+    {
+        return Students.Where(a => (a != null) && a.Name.ToUpper().Contains(query.ToUpper()));
+    }
     }
 }
