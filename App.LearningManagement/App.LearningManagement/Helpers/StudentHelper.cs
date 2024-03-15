@@ -22,7 +22,7 @@ namespace App.LearningManagement.Helpers
         }
 
         // Function to create the student record by calling function Add() from StudentService.cs
-        public void AddOrUpdateStudent(Person? selectedStudent = null)
+        public void AddOrUpdateStudent(Student? selectedStudent = null)
         {
             // Takes user-input for the student variables
             Console.WriteLine("What is the id of the student?");
@@ -55,7 +55,7 @@ namespace App.LearningManagement.Helpers
             if (selectedStudent == null)
             {
                 isCreate = true;
-                selectedStudent = new Person();
+                selectedStudent = new Student();
                
             }
 
@@ -93,7 +93,12 @@ namespace App.LearningManagement.Helpers
         // Function to list the students by calling function ListStudents() from StudentService.cs
         public void ListStudents()
         {
-            studentService.Students.ForEach(Console.WriteLine);
+            //studentService.Students.ForEach(Console.WriteLine);
+
+            foreach (var student in studentService.Students)
+            {
+                Console.WriteLine($"Student ID: {student.Id}, Name: {student.Name}");
+            }
 
             Console.WriteLine("Select a student:");
             var selectionStr = Console.ReadLine();

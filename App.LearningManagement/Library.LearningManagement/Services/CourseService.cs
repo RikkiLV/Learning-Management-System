@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.LearningManagement.Database;
 using Library.LearningManagement.Models;
 
 namespace Library.LearningManagement.Services
 {
     public class CourseService
     {
-        public List<Course> courseList;
         private static CourseService? _instance;
 
         public static CourseService Current
@@ -26,18 +26,18 @@ namespace Library.LearningManagement.Services
 
         private CourseService()
         {
-            courseList = new List<Course>();
+           
         }
 
         // Function to add courses to our list
         public void Add(Course course)
         {
-            courseList.Add(course);
+            FakeDatabase.Courses.Add(course);
         }
         // Function to list the courses in our list 
         public List<Course> Courses
         {
-            get { return courseList; }
+            get { return FakeDatabase.Courses; }
         }
         // Function allows for user to search a course in read-only
         public IEnumerable<Course> Search(string query)

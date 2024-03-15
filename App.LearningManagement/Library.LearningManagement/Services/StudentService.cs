@@ -3,18 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.LearningManagement.Database;
 using Library.LearningManagement.Models;
 
 namespace Library.LearningManagement.Services
 {
     public class StudentService
     {
-        public List<Person> studentList;
-        private static StudentService _instance;
+        
+        private static StudentService? _instance;
+
+        public IEnumerable<Student?> Students
+        {
+            get
+            {
+                return FakeDatabase.People.Where(p => p is Student).Select(p => p as Student);
+            }
+        }
 
         public StudentService()
         {
-            studentList = new List<Person>();
+            
         }
 
         public static StudentService Current
@@ -33,19 +42,15 @@ namespace Library.LearningManagement.Services
     // Function to add each student to our list
     public void Add(Person student)
         {
-            studentList.Add(student);
+            FakeDatabase.People.Add(student);
         }
 
-        // Function to list the students in our list 
-        public List<Person> Students
-        {
-            get { return studentList; }
-        }
+        
 
         // Function allows for user to search a student in read-only
-       public IEnumerable<Person> Search(string query)
+       public IEnumerable<Student?> Search(string query)
        {
-            return studentList.Where(s => s.Name.ToUpper().Contains(query.ToUpper()));
+            return Students.Where(a => (a != null) && a.Name.ToUpper().Contains(query.ToUpper()));
        }
     }
 }
