@@ -27,6 +27,6 @@
             Text="Ok"
             Clicked="OkClick"
             />
-        
+
     </VerticalStackLayout>
 </ContentPage>

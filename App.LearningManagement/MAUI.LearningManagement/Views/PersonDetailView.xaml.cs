@@ -9,8 +9,7 @@ public partial class PersonDetailView : ContentPage
 	public PersonDetailView()
 	{
 		InitializeComponent();
-		BindingContext = new PersonDetailViewModel();
-	}
+    }
 
 	private void OkClick(object sender, EventArgs e)
 	{
@@ -18,12 +17,12 @@ public partial class PersonDetailView : ContentPage
 		(BindingContext as PersonDetailViewModel).AddPerson();
 	}
 
-	private void OnLeaving (object sender, NavigatedToEventArgs e)
+	private void OnLeaving (object sender, NavigatedFromEventArgs e)
 	{
 		BindingContext = null;
 	}
 
-    private void OnArriving(object sender, NavigatedFromEventArgs e)
+    private void OnArriving(object sender, NavigatedToEventArgs e)
     {
 		BindingContext = new PersonDetailViewModel();
     }
