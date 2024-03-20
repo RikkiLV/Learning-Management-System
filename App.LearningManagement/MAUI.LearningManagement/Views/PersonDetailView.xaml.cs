@@ -4,6 +4,8 @@ using MAUI.LearningManagement.ViewModels;
 
 namespace MAUI.LearningManagement.Views;
 
+[QueryProperty(nameof(PersonId), "personId")]
+
 public partial class PersonDetailView : ContentPage
 {
 	public PersonDetailView()
@@ -11,19 +13,25 @@ public partial class PersonDetailView : ContentPage
 		InitializeComponent();
     }
 
+	public int PersonId { set; get; }
+
 	private void OkClick(object sender, EventArgs e)
 	{
-		//To do: Migrate this to ViewModel
-		(BindingContext as PersonDetailViewModel).AddPerson();
+		(BindingContext as PersonDetailViewModel).AddPerson(); 
 	}
 
-	private void OnLeaving (object sender, NavigatedFromEventArgs e)
+    private void CancelClick(object sender, EventArgs e)
+    {
+		Shell.Current.GoToAsync("//Instructor");
+    }
+
+    private void OnLeaving (object sender, NavigatedFromEventArgs e)
 	{
 		BindingContext = null;
 	}
 
     private void OnArriving(object sender, NavigatedToEventArgs e)
     {
-		BindingContext = new PersonDetailViewModel();
+		BindingContext = new PersonDetailViewModel(PersonId);
     }
 }

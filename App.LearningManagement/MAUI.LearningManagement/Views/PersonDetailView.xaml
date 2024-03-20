@@ -27,6 +27,10 @@
             Text="Ok"
             Clicked="OkClick"
             />
+        <Button
+            Text="Cancel"
+            Clicked="CancelClick"
+            />
 
     </VerticalStackLayout>
 </ContentPage>

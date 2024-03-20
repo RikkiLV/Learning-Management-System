@@ -4,29 +4,38 @@ namespace MAUI.LearningManagement.Views;
 
 public partial class InstructorView : ContentPage
 {
-      public InstructorView()
-      {
+    public InstructorView()
+    {
         InitializeComponent();
         BindingContext = new InstructorViewViewModel();
-      }
+    }
 
-      private void CancelClicked(object sender, EventArgs e)
-      {
+    private void CancelClicked(object sender, EventArgs e)
+    {
         Shell.Current.GoToAsync("//MainPage");
-      }
+    }
 
-      private void AddEnrollmentClick(object sender, EventArgs e)
-      {
+    private void AddEnrollmentClick(object sender, EventArgs e)
+    {
         (BindingContext as InstructorViewViewModel).AddClick(Shell.Current);
-      }
 
-      private void RemoveEnrollmentClick(object sender, EventArgs e)
-      {
+    }
+
+    private void EditEnrollmentClick(object sender, EventArgs e)
+    {
+
+        (BindingContext as InstructorViewViewModel).AddClick(Shell.Current);
+    }
+
+    private void RemoveEnrollmentClick(object sender, EventArgs e)
+    {
         (BindingContext as InstructorViewViewModel).RemoveClick();
-      }
+    }
 
-      public void ContentPage_NavigateTo(object sender, NavigatedToEventArgs e)
-      {
+    public void ContentPage_NavigateTo(object sender, NavigatedToEventArgs e)
+    {
         (BindingContext as InstructorViewViewModel).RefreshView();
-      }
+    }
+
+    
 }

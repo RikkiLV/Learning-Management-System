@@ -13,10 +13,12 @@ using Library.LearningManagement.Services;
 namespace MAUI.LearningManagement.ViewModels
 {
     public class InstructorViewViewModel : INotifyPropertyChanged
+
     {
+
         public ObservableCollection<Person> People
         {
-            get
+            get 
             {
                 return new ObservableCollection<Person>(StudentService.Current.Students);
             }
@@ -33,7 +35,8 @@ namespace MAUI.LearningManagement.ViewModels
 
         public void AddClick(Shell s)
         {
-            s.GoToAsync("//PersonDetail");
+            var idParam = SelectedPerson?.Id ?? 0;
+            s.GoToAsync($"//PersonDetail?personId={idParam}");
         }
 
         public void RemoveClick()

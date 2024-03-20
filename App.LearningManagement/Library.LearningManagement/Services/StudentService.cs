@@ -38,24 +38,31 @@ namespace Library.LearningManagement.Services
             }
         }
 
+     
 
-    // Function to add each student to our list
-    public void Add(Person student)
+        // Function to add each student to our list
+        public void Add(Person student)
         {
             FakeDatabase.People.Add(student);
         }
 
-     // Function to remove each student to our list
-    public void Remove(Person student)
+         // Function to remove each student to our list
+        public void Remove(Person student)
         {
             FakeDatabase.People.Remove(student);
         }
-    
 
-    // Function allows for user to search a student in read-only
-    public IEnumerable<Student?> Search(string query)
-    {
-        return Students.Where(a => (a != null) && a.Name.ToUpper().Contains(query.ToUpper()));
-    }
+        public Person? GetById(int id)
+        {
+            return FakeDatabase.People.FirstOrDefault(p => p.Id == id);
+        }
+
+
+
+        // Function allows for user to search a student in read-only
+        public IEnumerable<Student?> Search(string query)
+        {
+            return Students.Where(a => (a != null) && a.Name.ToUpper().Contains(query.ToUpper()));
+        }
     }
 }
