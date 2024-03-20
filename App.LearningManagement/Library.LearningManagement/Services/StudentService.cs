@@ -45,7 +45,12 @@ namespace Library.LearningManagement.Services
             FakeDatabase.People.Add(student);
         }
 
-        
+     // Function to remove each student to our list
+    public void Remove(Person student)
+        {
+            FakeDatabase.People.Remove(student);
+        }
+    
 
     // Function allows for user to search a student in read-only
     public IEnumerable<Student?> Search(string query)
