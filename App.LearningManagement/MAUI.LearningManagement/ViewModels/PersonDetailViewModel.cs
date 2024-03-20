@@ -16,7 +16,6 @@ namespace MAUI.LearningManagement.ViewModels
 
         public void AddPerson()
         {
-            var person = new Person();
             PersonClassification classification;
             switch (ClassificationString)
             {
@@ -26,7 +25,8 @@ namespace MAUI.LearningManagement.ViewModels
                     classification = PersonClassification.Junior; break;
                 case "O":
                     classification = PersonClassification.Sophomore; break;
-                case "F":
+                case "F": 
+                    classification = PersonClassification.Freshman; break;
                 default:
                     // Handle unexpected values
                     classification = PersonClassification.Freshman;

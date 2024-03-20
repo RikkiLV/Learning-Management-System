@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MAUI.LearningManagement.Views.PersonDetailView"
-             Title="PersonDetailView"
-             NavigatedFrom="OnLeaving"
-             NavigatedTo="OnArriving"
-             >
+             x:Class="MAUI.LearningManagement.Views.InstructorView"
+             Title="InstructorView"
+             NavigatedTo="ContentPage_NavigateTo">
     <VerticalStackLayout>
         <Label 
-            Text="Name"
+            Text="INSTRUCTOR VIEW"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Entry Text="{Binding Path=Name, Mode=TwoWay}"></Entry>
-        <StackLayout RadioButtonGroup.GroupName="Classifications"
-            RadioButtonGroup.SelectedValue="{Binding ClassificationString}">
-            <RadioButton Content="Freshman"
-                  Value="F" />
-            <RadioButton Content="Sophomore"
-                  Value="O" />
-            <RadioButton Content="Junior"
-                  Value="J" />
-            <RadioButton Content="Senior"
-                  Value="S" />
-        </StackLayout>
+        <ListView
+            ItemsSource="{Binding People}"
+            SelectedItem="{Binding SelectedPerson, Mode=TwoWay}">
+            <!-- <ListView,ItemTemplate>
+                <DataTemplate>
+                <ViewCell>
+            
+                </ViewCell>
+            </DataTemplate>
+            </ListView,ItemTemplate>-->
+        </ListView>
         <Button
-            Text="Ok"
-            Clicked="OkClick"
+            Text="Add Enrollment"
+            Clicked="AddEnrollmentClick"
             />
-        
+        <Button
+            Text="Remove Enrollment"
+            Clicked="RemoveEnrollmentClick"
+            />
+        <Button
+            Text="Cancel"
+            Clicked="CancelClicked"
+            />
+
+
     </VerticalStackLayout>
 </ContentPage>
