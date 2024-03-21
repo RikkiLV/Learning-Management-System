@@ -15,27 +15,45 @@ public partial class InstructorView : ContentPage
         Shell.Current.GoToAsync("//MainPage");
     }
 
+    // ENROLLMENTS
     private void AddEnrollmentClick(object sender, EventArgs e)
     {
-        (BindingContext as InstructorViewViewModel).AddClick(Shell.Current);
+        (BindingContext as InstructorViewViewModel).AddEnrollmentClick(Shell.Current);
 
     }
 
     private void EditEnrollmentClick(object sender, EventArgs e)
     {
 
-        (BindingContext as InstructorViewViewModel).AddClick(Shell.Current);
+        (BindingContext as InstructorViewViewModel).EditEnrollmentClick(Shell.Current);
     }
 
     private void RemoveEnrollmentClick(object sender, EventArgs e)
     {
-        (BindingContext as InstructorViewViewModel).RemoveClick();
+        (BindingContext as InstructorViewViewModel).RemoveEnrollmentClick();
     }
 
+    // COURSES
+    private void AddCourseClick(object sender, EventArgs e)
+    {
+        (BindingContext as InstructorViewViewModel).AddCourseClick(Shell.Current);
+    }
+
+    // NAVIGATION
     public void ContentPage_NavigateTo(object sender, NavigatedToEventArgs e)
     {
+        (BindingContext as InstructorViewViewModel).ResetView();
         (BindingContext as InstructorViewViewModel).RefreshView();
     }
 
-    
+    private void Toolbar_EnrollmentsClicked(object sender, EventArgs e)
+    {
+        (BindingContext as InstructorViewViewModel).ShowEnrollments();
+    }
+
+    private void Toolbar_CoursesClicked(object sender, EventArgs e)
+    {
+        (BindingContext as InstructorViewViewModel).ShowCourses();
+    }
+
 }
