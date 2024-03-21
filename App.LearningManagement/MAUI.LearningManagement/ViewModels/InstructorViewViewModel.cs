@@ -16,6 +16,12 @@ namespace MAUI.LearningManagement.ViewModels
 
     {
 
+        public InstructorViewViewModel() 
+        {
+            IsEnrollmentsVisible = true;
+            IsCoursesVisible = false;
+        }
+
         public ObservableCollection<Person> People
         {
             get 
@@ -25,10 +31,48 @@ namespace MAUI.LearningManagement.ViewModels
             }
         }
 
-      
-        public Person SelectedPerson { get; set; }
-        private string query;
+        public ObservableCollection<Course> Courses
+        {
+            get
+            {
+                return new ObservableCollection<Course>(CourseService.Current.Courses);
+            }
+        }
+        public string Title { get => "Instructor / Administrator Menu"; }
 
+        // INITIALIZE ENROLLMENTS AND COURSES
+        public bool IsEnrollmentsVisible
+        {
+            get; set;
+        }
+
+        public bool IsCoursesVisible
+        {
+            get; set;
+        }
+
+        public void ShowEnrollments()
+        {
+            IsEnrollmentsVisible = true;
+            IsCoursesVisible = false;
+            NotifyPropertyChanged("IsEnrollmentsVisible");
+            NotifyPropertyChanged("IsCoursesVisible");
+        }
+
+        public void ShowCourses()
+        {
+            IsEnrollmentsVisible = false;
+            IsCoursesVisible = true;
+            NotifyPropertyChanged("IsEnrollmentsVisible");
+            NotifyPropertyChanged("IsCoursesVisible");
+        }
+
+
+        public Person SelectedPerson { get; set; }
+        public Course SelectedCourse { get; set; }
+
+
+        private string query;
         public string Query
         {
             get => query;
@@ -47,18 +91,37 @@ namespace MAUI.LearningManagement.ViewModels
 
         }
 
-        public void AddClick(Shell s)
+        // ENROLLMENTS
+        public void AddEnrollmentClick(Shell s)
+        {
+            s.GoToAsync($"//PersonDetail?personId=0");
+        }
+
+        public void EditEnrollmentClick(Shell s)
         {
             var idParam = SelectedPerson?.Id ?? 0;
             s.GoToAsync($"//PersonDetail?personId={idParam}");
         }
 
-        public void RemoveClick()
+        public void RemoveEnrollmentClick()
         {
             if(SelectedPerson==null) { return; }
 
             StudentService.Current.Remove(SelectedPerson);
             RefreshView();
+        }
+
+        // COURSES
+        public void AddCourseClick(Shell s)
+        {
+            s.GoToAsync($"//CourseDetail");
+        }
+
+        // NAVIGATION for routes
+        public void ResetView()
+        {
+            Query = string.Empty;
+            NotifyPropertyChanged(nameof(Query));
         }
 
         public void RefreshView()

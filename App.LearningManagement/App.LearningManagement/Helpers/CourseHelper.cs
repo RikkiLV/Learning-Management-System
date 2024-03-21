@@ -99,7 +99,6 @@ namespace App.LearningManagement.Helpers
 
             // User can change Course record
             // Course variables
-            selectedCourse.Code = code;
             selectedCourse.Name = name;
             selectedCourse.Description = description;
             selectedCourse.Roster = new List<Person>();
