@@ -40,6 +40,7 @@ namespace Library.LearningManagement.Models
 
         public Course()
         {
+            
             Name = string.Empty;
             Description = string.Empty;
             Roster = new List<Person>();
