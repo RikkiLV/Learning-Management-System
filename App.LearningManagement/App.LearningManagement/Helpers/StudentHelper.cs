@@ -61,7 +61,7 @@ namespace App.LearningManagement.Helpers
 
             // User can change Student record
 
-            selectedStudent.Id = int.Parse(id ?? "0");
+            //selectedStudent.Id = int.Parse(id ?? "0");
             selectedStudent.Name = name ?? string.Empty;
             selectedStudent.Classification = classEnum;
 
