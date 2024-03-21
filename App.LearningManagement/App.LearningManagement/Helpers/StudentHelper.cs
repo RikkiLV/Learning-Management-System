@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using System.ComponentModel.Design;
 using Library.LearningManagement.Models;
 using Library.LearningManagement.Services;
 
@@ -14,116 +15,169 @@ namespace App.LearningManagement.Helpers
     {
         private StudentService studentService;
         private CourseService courseService;
+        private ListNavigator<Student> studentNavigator;
 
         public StudentHelper()
         {
             studentService = StudentService.Current;
             courseService = CourseService.Current;
+
+            studentNavigator = new ListNavigator<Student>(studentService.Students.ToList(), 2);
         }
 
-        // Function to create the student record by calling function Add() from StudentService.cs
-        public void AddOrUpdateStudent(Student? selectedStudent = null)
+        public void CreateStudentRecord(Person? selectedStudent = null)
         {
-            // Takes user-input for the student variables
-            Console.WriteLine("What is the id of the student?");
-            var id = Console.ReadLine();
-            Console.WriteLine("What is the name of the student?");
-            var name = Console.ReadLine();
-            Console.WriteLine("What is the classification of the student? [(F)reshman, S(O)phomore, (J)unior, (S)enior");
-            var classification = Console.ReadLine();
-
-            // Conditional statement for student classification
-            PersonClassification classEnum = PersonClassification.Freshman;
-
-            if (classification.Equals("O", StringComparison.InvariantCultureIgnoreCase))
-            {
-                classEnum = PersonClassification.Sophomore;
-            }
-            else if (classification.Equals("J", StringComparison.InvariantCultureIgnoreCase))
-            {
-                classEnum = PersonClassification.Junior;
-            }
-            else if (classification.Equals("S", StringComparison.InvariantCultureIgnoreCase))
-            {
-                classEnum = PersonClassification.Senior;
-            }
-
-
-            // User-inputs are assigned to a new Person objects if user is just created
-
             bool isCreate = false;
             if (selectedStudent == null)
             {
                 isCreate = true;
-                selectedStudent = new Student();
-               
+                Console.WriteLine("What type of person would you like to add?");
+                Console.WriteLine("(S)tudent");
+                Console.WriteLine("(I)nstructor");
+                var choice = Console.ReadLine() ?? string.Empty;
+                if (string.IsNullOrEmpty(choice))
+                {
+                    return;
+                }
+                if (choice.Equals("S", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    selectedStudent = new Student();
+                }
+                else if (choice.Equals("I", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    selectedStudent = new Instructor();
+                }
             }
 
-            // User can change Student record
-
-            //selectedStudent.Id = int.Parse(id ?? "0");
-            selectedStudent.Name = name ?? string.Empty;
-            selectedStudent.Classification = classEnum;
-
-            // Each student is added to studentList is just created
-            if (isCreate)
+            Console.WriteLine("What is the name of the student?");
+            var name = Console.ReadLine();
+            if (selectedStudent is Student)
             {
-                studentService.Add(selectedStudent);
+                Console.WriteLine("What is the classification of the student? [(F)reshman, S(O)phomore, (J)unior, (S)enior]");
+                var classification = Console.ReadLine() ?? string.Empty;
+                PersonClassification classEnum = PersonClassification.Freshman;
+
+                if (classification.Equals("O", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    classEnum = PersonClassification.Sophomore;
+                }
+                else if (classification.Equals("J", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    classEnum = PersonClassification.Junior;
+                }
+                else if (classification.Equals("S", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    classEnum = PersonClassification.Senior;
+                }
+                var studentRecord = selectedStudent as Student;
+                if (studentRecord != null)
+                {
+                    studentRecord.Classification = classEnum;
+                    studentRecord.Name = name ?? string.Empty;
+
+                    if (isCreate)
+                    {
+                        studentService.Add(selectedStudent);
+                    }
+                }
             }
-
-        }
-
-        // Function to update the student using Id and called the CreateStudentRecord() function in order to do so
-        public void UpdateStudentRecord()
-        {
-            Console.WriteLine("Select a student to update:");
-            ListStudents();
-            var selectionStr = Console.ReadLine();
-
-            if(int.TryParse(selectionStr, out int selectionInt))
+            else
             {
-               var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectionInt);
                 if (selectedStudent != null)
                 {
-                    AddOrUpdateStudent(selectedStudent);
+                    selectedStudent.Name = name ?? string.Empty;
+                    if (isCreate)
+                    {
+                        studentService.Add(selectedStudent);
+                    }
                 }
             }
         }
 
-        // Function to list the students by calling function ListStudents() from StudentService.cs
-        public void ListStudents()
+        public void UpdateStudentRecord()
         {
-            //studentService.Students.ForEach(Console.WriteLine);
+            Console.WriteLine("Select a person to update:");
+            studentService.Students.ToList().ForEach(Console.WriteLine);
 
-            foreach (var student in studentService.Students)
-            {
-                Console.WriteLine($"Student ID: {student.Id}, Name: {student.Name}");
-            }
-
-            Console.WriteLine("Select a student:");
             var selectionStr = Console.ReadLine();
-            var selectionInt = int.Parse(selectionStr ?? "0");
 
-            Console.WriteLine("Student Course List:");
-            courseService.Courses.Where(c => c.Roster.Any(s => s.Id == selectionInt)).ToList().ForEach(Console.WriteLine);
-
-
-
+            if (int.TryParse(selectionStr, out int selectionInt))
+            {
+                var selectedStudent = studentService.Students.FirstOrDefault(s => s.Id == selectionInt);
+                if (selectedStudent != null)
+                {
+                    CreateStudentRecord(selectedStudent);
+                }
+            }
         }
 
-        // Function to search students by name by calling function Search() from StudentService.cs
-        public void SearchStudent()
+        private void NavigateStudents(string? query = null)
+        {
+            ListNavigator<Student>? currentNavigator = null;
+            if (query == null)
+            {
+                currentNavigator = studentNavigator;
+            }
+            else
+            {
+                currentNavigator = new ListNavigator<Student>(studentService.Search(query).ToList(), 2);
+            }
+
+            bool keepPaging = true;
+            while (keepPaging)
+            {
+                foreach (var pair in currentNavigator.GetCurrentPage())
+                {
+                    Console.WriteLine($"{pair.Key}. {pair.Value}");
+                }
+
+                if (currentNavigator.HasPreviousPage)
+                {
+                    Console.WriteLine("P. Previous Page");
+                }
+
+                if (currentNavigator.HasNextPage)
+                {
+                    Console.WriteLine("N. Next Page");
+                }
+
+                Console.WriteLine("Make a selection:");
+                var selectionStr = Console.ReadLine();
+
+                if ((selectionStr?.Equals("P", StringComparison.InvariantCultureIgnoreCase) ?? false)
+                    || (selectionStr?.Equals("N", StringComparison.InvariantCultureIgnoreCase) ?? false))
+                {
+                    //Navigate through pages
+                    if (selectionStr.Equals("P", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        currentNavigator.GoBackward();
+                    }
+                    else if (selectionStr.Equals("N", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        currentNavigator.GoForward();
+                    }
+                }
+                else
+                {
+                    var selectionInt = int.Parse(selectionStr ?? "0");
+
+                    Console.WriteLine("Student Course List:");
+                    courseService.Courses.Where(c => c.Roster.Any(s => s.Id == selectionInt)).ToList().ForEach(Console.WriteLine);
+                    keepPaging = false;
+                }
+            }
+        }
+
+        public void ListStudents()
+        {
+            NavigateStudents();
+        }
+
+        public void SearchStudents()
         {
             Console.WriteLine("Enter a query:");
             var query = Console.ReadLine() ?? string.Empty;
-
-            studentService.Search(query).ToList().ForEach(Console.WriteLine);
-            var selectionStr = Console.ReadLine();
-            var selectionInt = int.Parse(selectionStr ?? "0");
-
-            Console.WriteLine("Student Course List:");
-            courseService.Courses.Where(c => c.Roster.Any(s => s.Id == selectionInt)).ToList().ForEach(Console.WriteLine);
-
+            NavigateStudents(query);
         }
     }
 }
