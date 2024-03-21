@@ -41,14 +41,17 @@ namespace MAUI.LearningManagement.ViewModels
 
         public void AddPerson()
         {
-            if (Id <=0)
+            if (Id <= 0)
             {
                 StudentService.Current.Add(new Student { Name = Name, Classification = StringToClass(ClassificationString) });
-            } else
+            }
+            else
             {
                 var refToUpdate = StudentService.Current.GetById(Id) as Student;
                 refToUpdate.Name = Name;
-                refToUpdate.Classification = StringToClass(ClassificationString); 
+                refToUpdate.Classification = StringToClass(ClassificationString);
+
+
             }
             Shell.Current.GoToAsync("//Instructor");
         }

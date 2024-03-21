@@ -15,7 +15,20 @@ public partial class PersonDetailView : ContentPage
 
 	public int PersonId { set; get; }
 
-	private void OkClick(object sender, EventArgs e)
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (PersonId > 0)
+        {
+            BindingContext = new PersonDetailViewModel(PersonId);
+        }
+        else
+        {
+            BindingContext = new PersonDetailViewModel();
+        }
+    }
+
+    private void OkClick(object sender, EventArgs e)
 	{
 		(BindingContext as PersonDetailViewModel).AddPerson(); 
 	}

@@ -28,6 +28,7 @@ namespace MAUI.LearningManagement.ViewModels
       
         public Person SelectedPerson { get; set; }
         private string query;
+
         public string Query
         {
             get => query;
