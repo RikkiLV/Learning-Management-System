@@ -8,13 +8,15 @@ namespace MAUI.LearningManagement.Views;
 
 public partial class PersonDetailView : ContentPage
 {
-	public PersonDetailView()
+    // DECLARATIONS
+    public int PersonId { set; get; }
+
+    public PersonDetailView()
 	{
 		InitializeComponent();
     }
 
-	public int PersonId { set; get; }
-
+    // ALLOWS SELECTED SEARCH to fill to edit
     protected override void OnAppearing()
     {
         base.OnAppearing();
@@ -28,6 +30,8 @@ public partial class PersonDetailView : ContentPage
         }
     }
 
+
+    // BUTTON FUNCTIONS
     private void OkClick(object sender, EventArgs e)
 	{
 		(BindingContext as PersonDetailViewModel).AddPerson(); 
@@ -38,6 +42,7 @@ public partial class PersonDetailView : ContentPage
 		Shell.Current.GoToAsync("//Instructor");
     }
 
+    // ROUTE NAVIGATION 
     private void OnLeaving (object sender, NavigatedFromEventArgs e)
 	{
 		BindingContext = null;
