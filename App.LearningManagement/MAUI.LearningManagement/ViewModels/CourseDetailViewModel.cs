@@ -55,20 +55,14 @@ namespace MAUI.LearningManagement.ViewModels
 
         public string Name
         {
-            //get => course?.Name ?? string.Empty;
-            //set { if (course != null) course.Name = value; }
             get; set;
         }
         public string Description
         {
-            //get => course?.Description ?? string.Empty;
-            //set { if (course != null) course.Description = value; }
             get; set;
         }
         public string Prefix
-        {
-            //get => course?.Prefix ?? string.Empty;
-            //set { if (course != null) course.Prefix = value; }
+        { 
             get; set;
         }
         

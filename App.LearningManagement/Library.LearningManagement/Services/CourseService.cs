@@ -12,6 +12,13 @@ namespace Library.LearningManagement.Services
     {
         private static CourseService? _instance;
 
+        public IEnumerable<Course?> Courses
+        {
+            get
+            {
+                return FakeDatabase.Courses.Where(c => c is Course).Select(c => c as Course);
+            }
+        }
 
         public static CourseService Current
         {
@@ -27,7 +34,7 @@ namespace Library.LearningManagement.Services
 
         private CourseService()
         {
-           
+
         }
 
         // Function to add courses to our list
@@ -48,19 +55,11 @@ namespace Library.LearningManagement.Services
         }
 
 
-        // Function to list the courses in our list 
-        public List<Course> Courses
-        {
-            get { return FakeDatabase.Courses; }
-        }
-
         // Function allows for user to search a course in read-only
         public IEnumerable<Course> Search(string query)
         {
-            return Courses.Where(s => s.Name.ToUpper().Contains(query.ToUpper()) 
-            || s.Description.ToUpper().Contains(query.ToUpper())
-            || s.Code.ToUpper().Contains(query.ToUpper()));
-        }
+            return Courses.Where(a => (a != null) && a.Name.ToUpper().Contains(query.ToUpper()));
 
+        }
     }
 }

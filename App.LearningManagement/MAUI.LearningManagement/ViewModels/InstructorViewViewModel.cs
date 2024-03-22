@@ -35,7 +35,10 @@ namespace MAUI.LearningManagement.ViewModels
         {
             get
             {
-                return new ObservableCollection<Course>(CourseService.Current.Courses);
+                var filteredList = CourseService.Current.Courses
+                    .Where(c => (c.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty) || 
+                    (c.Prefix.ToUpper().Contains(Query?.ToUpper() ?? string.Empty))));
+                return new ObservableCollection<Course>(filteredList);
             }
         }
         public string Title { get => "Instructor / Administrator Menu"; }
