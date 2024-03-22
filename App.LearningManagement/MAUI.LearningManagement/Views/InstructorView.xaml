@@ -72,6 +72,7 @@
 
             <Button
                 Text="Cancel"
+                Clicked="CourseCancelClicked"
                 />
         </VerticalStackLayout>
     </VerticalStackLayout>

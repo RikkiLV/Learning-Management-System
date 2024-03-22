@@ -16,15 +16,34 @@ namespace MAUI.LearningManagement.ViewModels
 
     {
 
-        public InstructorViewViewModel() 
+        // DECLARATIONS
+        public bool IsEnrollmentsVisible  { get; set;}
+
+        public bool IsCoursesVisible { get; set; }
+
+        public string Title { get => "Instructor / Administrator Menu"; }
+
+        public Person SelectedPerson { get; set; }
+        public Course SelectedCourse { get; set; }
+
+
+        // QUERY INITIALIZING for search functions
+        private string query;
+        public string Query
         {
-            IsEnrollmentsVisible = true;
-            IsCoursesVisible = false;
+            get => query;
+            set
+            {
+                query = value;
+                NotifyPropertyChanged(nameof(People));
+                NotifyPropertyChanged(nameof(Courses));
+            }
         }
 
+        // QUERY SEARCH FUNCTIONS for courses and students
         public ObservableCollection<Person> People
         {
-            get 
+            get
             {
                 var filteredList = StudentService.Current.Students.Where(s => s.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty));
                 return new ObservableCollection<Person>(filteredList);
@@ -36,22 +55,26 @@ namespace MAUI.LearningManagement.ViewModels
             get
             {
                 var filteredList = CourseService.Current.Courses
-                    .Where(c => (c.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty) || 
+                    .Where(c => (c.Name.ToUpper().Contains(Query?.ToUpper() ?? string.Empty) ||
                     (c.Prefix.ToUpper().Contains(Query?.ToUpper() ?? string.Empty))));
                 return new ObservableCollection<Course>(filteredList);
             }
         }
-        public string Title { get => "Instructor / Administrator Menu"; }
 
-        // INITIALIZE ENROLLMENTS AND COURSES
-        public bool IsEnrollmentsVisible
+        // EVENT HANDLER 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
         {
-            get; set;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         }
 
-        public bool IsCoursesVisible
+        // LIST DISPLAY for courses and students
+        public InstructorViewViewModel()
         {
-            get; set;
+            IsEnrollmentsVisible = true;
+            IsCoursesVisible = false;
         }
 
         public void ShowEnrollments()
@@ -70,32 +93,7 @@ namespace MAUI.LearningManagement.ViewModels
             NotifyPropertyChanged("IsCoursesVisible");
         }
 
-
-        public Person SelectedPerson { get; set; }
-        public Course SelectedCourse { get; set; }
-
-
-        private string query;
-        public string Query
-        {
-            get => query;
-            set
-            {
-                query = value;
-                NotifyPropertyChanged(nameof(People));
-                NotifyPropertyChanged(nameof(Courses));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        }
-
-        // ENROLLMENTS
+        // ENROLLMENTS functions
         public void AddEnrollmentClick(Shell s)
         {
             s.GoToAsync($"//PersonDetail?personId=0");
@@ -115,7 +113,7 @@ namespace MAUI.LearningManagement.ViewModels
             RefreshView();
         }
 
-        // COURSES
+        // COURSES functions
         public void AddCourseClick(Shell s)
         {
             var idParam = SelectedCourse?.Id ?? 0;

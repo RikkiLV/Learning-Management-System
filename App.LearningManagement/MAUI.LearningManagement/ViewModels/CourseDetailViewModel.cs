@@ -12,9 +12,11 @@ namespace MAUI.LearningManagement.ViewModels
 {
     class CourseDetailViewModel : INotifyPropertyChanged
     {
-
+        // DECLARATIONS
         public int Id { get; set; }
-
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Prefix { get; set; }
         public string CourseCode
         {
             get => course?.Code ?? string.Empty;
@@ -23,6 +25,7 @@ namespace MAUI.LearningManagement.ViewModels
         private Course course;
 
 
+        // COURSE ID handler to load existing course from the DB
         public CourseDetailViewModel(int id = 0)
         {
             if (id > 0) { LoadById(id); };
@@ -46,6 +49,8 @@ namespace MAUI.LearningManagement.ViewModels
 
         }
 
+
+        // EVENT HANDLER
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -53,19 +58,7 @@ namespace MAUI.LearningManagement.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public string Name
-        {
-            get; set;
-        }
-        public string Description
-        {
-            get; set;
-        }
-        public string Prefix
-        { 
-            get; set;
-        }
-        
+        // ADD FUNCTION for courses
         public void AddCourse()
         {
             if (Id <= 0) {

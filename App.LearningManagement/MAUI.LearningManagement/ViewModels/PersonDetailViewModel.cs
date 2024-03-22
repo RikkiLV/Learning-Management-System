@@ -13,10 +13,13 @@ namespace MAUI.LearningManagement.ViewModels
     public class PersonDetailViewModel : INotifyPropertyChanged
     {
 
+        // DECLARATIONS
         public string Name { get; set; }
         public string ClassificationString { get; set; } 
         public int Id { get; set; }
 
+
+        // STUDENT ID handler to load existing student from the DB
         public PersonDetailViewModel(int id=0) 
         { 
             if (id > 0) { LoadById(id); };
@@ -39,6 +42,7 @@ namespace MAUI.LearningManagement.ViewModels
 
         }
 
+        // ADD FUNCTION for students
         public void AddPerson()
         {
             if (Id <= 0)
@@ -56,6 +60,7 @@ namespace MAUI.LearningManagement.ViewModels
             Shell.Current.GoToAsync("//Instructor");
         }
 
+        // EVENT HANDLER 
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
@@ -63,6 +68,7 @@ namespace MAUI.LearningManagement.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        // CLASSIFICATION STRING HANDLER
         private PersonClassification StringToClass(string s)
         {
             PersonClassification classification;
