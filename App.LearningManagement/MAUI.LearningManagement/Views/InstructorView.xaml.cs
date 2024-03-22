@@ -38,6 +38,10 @@ public partial class InstructorView : ContentPage
     {
         (BindingContext as InstructorViewViewModel).AddCourseClick(Shell.Current);
     }
+    private void RemoveCourseClick(object sender, EventArgs e)
+    {
+        (BindingContext as InstructorViewViewModel).RemoveCourseClick();
+    }
 
     // NAVIGATION
     public void ContentPage_NavigateTo(object sender, NavigatedToEventArgs e)

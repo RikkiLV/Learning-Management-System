@@ -117,6 +117,14 @@ namespace MAUI.LearningManagement.ViewModels
             s.GoToAsync($"//CourseDetail");
         }
 
+        public void RemoveCourseClick()
+        {
+            if (SelectedCourse == null) { return; }
+
+            CourseService.Current.Remove(SelectedCourse);
+            RefreshView();
+        }
+
         // NAVIGATION for routes
         public void ResetView()
         {

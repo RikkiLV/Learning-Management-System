@@ -34,11 +34,19 @@ namespace Library.LearningManagement.Services
         {
             FakeDatabase.Courses.Add(course);
         }
+
+        // Function to remove courses to our list
+        public void Remove(Course course)
+        {
+            FakeDatabase.Courses.Remove(course);
+        }
+
         // Function to list the courses in our list 
         public List<Course> Courses
         {
             get { return FakeDatabase.Courses; }
         }
+
         // Function allows for user to search a course in read-only
         public IEnumerable<Course> Search(string query)
         {
