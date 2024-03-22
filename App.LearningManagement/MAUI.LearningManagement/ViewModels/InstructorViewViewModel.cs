@@ -80,6 +80,7 @@ namespace MAUI.LearningManagement.ViewModels
             {
                 query = value;
                 NotifyPropertyChanged(nameof(People));
+                NotifyPropertyChanged(nameof(Courses));
             }
         }
 
@@ -114,7 +115,8 @@ namespace MAUI.LearningManagement.ViewModels
         // COURSES
         public void AddCourseClick(Shell s)
         {
-            s.GoToAsync($"//CourseDetail");
+            var idParam = SelectedCourse?.Id ?? 0;
+            s.GoToAsync($"//CourseDetail?courseId={idParam}");
         }
 
         public void RemoveCourseClick()
