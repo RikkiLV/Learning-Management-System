@@ -12,6 +12,7 @@ namespace Library.LearningManagement.Services
     {
         private static CourseService? _instance;
 
+
         public static CourseService Current
         {
             get
@@ -40,6 +41,12 @@ namespace Library.LearningManagement.Services
         {
             FakeDatabase.Courses.Remove(course);
         }
+
+        public Course? GetById(int id)
+        {
+            return FakeDatabase.Courses.FirstOrDefault(c => c.Id == id);
+        }
+
 
         // Function to list the courses in our list 
         public List<Course> Courses

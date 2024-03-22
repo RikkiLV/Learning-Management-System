@@ -2,12 +2,27 @@ using MAUI.LearningManagement.ViewModels;
 
 namespace MAUI.LearningManagement.Views;
 
+[QueryProperty(nameof(CourseId), "courseId")]
 public partial class CourseDetailView : ContentPage
 {
 	public CourseDetailView()
 	{
 		InitializeComponent();
     }
+    public int CourseId { set; get; }
+
+    //protected override void OnAppearing()
+    //{
+    //    base.OnAppearing();
+    //    if (CourseId > 0)
+    //    {
+    //        BindingContext = new CourseDetailViewModel(CourseId);
+    //    }
+    //    else
+    //    {
+    //        BindingContext = new CourseDetailViewModel();
+    //    }
+    //}
 
     private void CancelClicked(object sender, EventArgs e)
     {
@@ -26,6 +41,6 @@ public partial class CourseDetailView : ContentPage
 
     private void OnArriving(object sender, NavigatedToEventArgs e)
     {
-        BindingContext = new CourseDetailViewModel();
+        BindingContext = new CourseDetailViewModel(CourseId);
     }
 }
