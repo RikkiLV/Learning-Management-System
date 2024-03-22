@@ -39,10 +39,10 @@ namespace MAUI.LearningManagement.ViewModels
 
         private Course course;
 
-        public void AddCourse(Shell s)
+        public void AddCourse()
         {
-            CourseService.Current.Add(course);
-            s.GoToAsync("//Instructor");
+            CourseService.Current.Add(new Course { Prefix = Prefix, Name = Name, Description = Description });
+            Shell.Current.GoToAsync("//Instructor");
         }
 
     }

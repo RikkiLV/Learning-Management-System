@@ -26,7 +26,7 @@
                 HorizontalOptions="Center" />
             <ListView
                 ItemsSource="{Binding People}"
-                SelectedItem="{Binding SelectedPerson}">
+                SelectedItem="{Binding SelectedPerson, Mode=TwoWay}">
             </ListView>
             <Button 
                 Text="Add Enrollment"
@@ -55,7 +55,7 @@
                 HorizontalOptions="Center" />
             <ListView
                 ItemsSource="{Binding Courses}"
-                SelectedItem="{Binding SelectedCourse}">
+                SelectedItem="{Binding SelectedCourse, Mode=TwoWay}">
             </ListView>
             <Button 
                 Text="Add Course"
@@ -66,6 +66,7 @@
                 />
             <Button
                 Text="Remove Course"
+                Clicked="RemoveCourseClick"
                 />
 
             <Button
