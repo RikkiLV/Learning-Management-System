@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MAUI.LearningManagement.Views.CourseDetailView"
+             xmlns:local="clr-namespace:MAUI.LearningManagement.ViewModels"
              Title="CourseDetailView"
              NavigatedFrom="OnLeaving"
              NavigatedTo="OnArriving"
@@ -56,10 +57,16 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Text="Not Enrolled" Grid.Column="0"></Label>
-            <Label Text="Buttons" Grid.Column="1"></Label>
+            <!--MODULES-->
+            <Button IsVisible="{Binding IsModulesVisible}"
+                 Text="View Modules"
+                 Clicked="ViewModulesClicked"
+                 HorizontalOptions="Center"
+                 Grid.Column="1"
+                 
+             />
             <Label Text="Enrolled" Grid.Column="2"></Label>
-        </Grid>
-
+        </Grid> 
         <Button Text="Ok"
                 Clicked="OkClicked"
                 />

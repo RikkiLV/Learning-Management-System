@@ -24,6 +24,26 @@ namespace MAUI.LearningManagement.ViewModels
 
         private Course course;
 
+        private bool isEditingCourse;
+
+        // Property to track whether the user is editing a course
+        public bool IsEditingCourse
+        {
+            get => isEditingCourse;
+            set
+            {
+                if (isEditingCourse != value)
+                {
+                    isEditingCourse = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        // Property to control the visibility of module-related UI elements
+        public bool IsModulesVisible => IsEditingCourse;
+
+
 
         // COURSE ID handler to load existing course from the DB
         public CourseDetailViewModel(int id = 0)
@@ -33,14 +53,19 @@ namespace MAUI.LearningManagement.ViewModels
 
         public void LoadById(int id)
         {
-            if (id == 0) { return; }
+            if (id == 0) 
+            {
+                IsEditingCourse = false;
+                return; 
+            }
             var course = CourseService.Current.GetById(id) as Course;
             if (course != null)
             {
                 Prefix = course.Prefix;
                 Name = course.Name;
                 Id = course.Id;
-         
+                IsEditingCourse = true;
+
 
             }
 
