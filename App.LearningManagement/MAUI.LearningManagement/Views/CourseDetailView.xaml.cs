@@ -20,7 +20,7 @@ public partial class CourseDetailView : ContentPage
         if (CourseId > 0)
         {
             BindingContext = new CourseDetailViewModel(CourseId);
-            BindingContext = new CourseDetailViewModel();
+            
         }
         else
         {

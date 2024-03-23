@@ -39,16 +39,20 @@
                 Text="{Binding Path=Name, Mode=TwoWay}"
                 Grid.Row="1"
                 Grid.Column="1"></Entry>
-
+             
         </Grid>
-
 
         <Label 
             Text="Description"
             VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Entry Text="{Binding Path=Description, Mode=TwoWay}"></Entry>
-
+            HorizontalOptions="Start" 
+            Grid.Row="0"
+            Grid.Column="0"/>
+        <Entry 
+            Text="{Binding Path=Description, Mode=TwoWay}"
+            Grid.Row="1"
+            Grid.Column="0"></Entry>    
+        
         <!--STUDENT ROSTER-->
         <Grid>
             <Grid.ColumnDefinitions>
@@ -63,7 +67,6 @@
                  Clicked="ViewModulesClicked"
                  HorizontalOptions="Center"
                  Grid.Column="1"
-                 
              />
             <Label Text="Enrolled" Grid.Column="2"></Label>
         </Grid> 

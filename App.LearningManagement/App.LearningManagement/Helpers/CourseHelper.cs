@@ -91,7 +91,7 @@ namespace App.LearningManagement.Helpers
         public void UpdateCourseRecord()
         {
             Console.WriteLine("Enter the code for the course to update:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -105,7 +105,7 @@ namespace App.LearningManagement.Helpers
         {
             if (string.IsNullOrEmpty(query))
             {
-                courseService.Courses.ForEach(Console.WriteLine);
+                courseService.Courses.ToList().ForEach(Console.WriteLine);
             }
             else
             {
@@ -126,7 +126,7 @@ namespace App.LearningManagement.Helpers
         public void AddStudent()
         {
             Console.WriteLine("Enter the code for the course to add the student to:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -153,7 +153,7 @@ namespace App.LearningManagement.Helpers
         public void RemoveStudent()
         {
             Console.WriteLine("Enter the code for the course to remove the student from:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -184,7 +184,7 @@ namespace App.LearningManagement.Helpers
         public void AddAssignment()
         {
             Console.WriteLine("Enter the code for the course to add the assignment to:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -197,7 +197,7 @@ namespace App.LearningManagement.Helpers
         public void AddSubmission()
         {
             Console.WriteLine("Enter the code for the course to add the assignment to:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -263,7 +263,7 @@ namespace App.LearningManagement.Helpers
         public void AddModule()
         {
             Console.WriteLine("Enter the code for the course to add the module to:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -277,7 +277,7 @@ namespace App.LearningManagement.Helpers
         public void RemoveModule()
         {
             Console.WriteLine("Enter the code for the course:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -298,7 +298,7 @@ namespace App.LearningManagement.Helpers
         public void UpdateModule()
         {
             Console.WriteLine("Enter the code for the course:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -408,7 +408,7 @@ namespace App.LearningManagement.Helpers
         public void UpdateAssignment()
         {
             Console.WriteLine("Enter the code for the course:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -436,7 +436,7 @@ namespace App.LearningManagement.Helpers
         public void RemoveAssignment()
         {
             Console.WriteLine("Enter the code for the course:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -697,7 +697,7 @@ namespace App.LearningManagement.Helpers
         public void ListSubmissions()
         {
             Console.WriteLine("Enter the code for the course to add the assignment to:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -710,7 +710,7 @@ namespace App.LearningManagement.Helpers
         public void RemoveSubmission()
         {
             Console.WriteLine("Enter the code for the course to add the assignment to:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -730,7 +730,7 @@ namespace App.LearningManagement.Helpers
         public void UpdateSubmission()
         {
             Console.WriteLine("Enter the code for the course to add the assignment to:");
-            courseService.Courses.ForEach(Console.WriteLine);
+            courseService.Courses.ToList().ForEach(Console.WriteLine);
             var selection = Console.ReadLine();
 
             var selectedCourse = courseService.Courses.FirstOrDefault(s => s.Code.Equals(selection, StringComparison.InvariantCultureIgnoreCase));
@@ -743,5 +743,7 @@ namespace App.LearningManagement.Helpers
                 selectedCourse.Submissions.FirstOrDefault(s => s.Id == selectedId).Content = Console.ReadLine() ?? string.Empty;
             }
         }
+
+
     }
 }

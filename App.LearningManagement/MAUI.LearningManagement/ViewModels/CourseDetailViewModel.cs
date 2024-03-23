@@ -64,6 +64,7 @@ namespace MAUI.LearningManagement.ViewModels
                 Prefix = course.Prefix;
                 Name = course.Name;
                 Id = course.Id;
+                Description = course.Description;
                 IsEditingCourse = true;
 
 
@@ -71,6 +72,7 @@ namespace MAUI.LearningManagement.ViewModels
 
             NotifyPropertyChanged(nameof(Name));
             NotifyPropertyChanged(nameof(Prefix));
+            NotifyPropertyChanged(nameof(Description));
 
         }
 
