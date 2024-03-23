@@ -1,3 +1,4 @@
+using Library.LearningManagement.Models;
 using MAUI.LearningManagement.ViewModels;
 
 namespace MAUI.LearningManagement.Views;

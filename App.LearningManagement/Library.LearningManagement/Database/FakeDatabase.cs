@@ -11,6 +11,7 @@ namespace Library.LearningManagement.Database
     {
         private static List<Person> people = new List<Person>();
         private static List<Course> courses = new List<Course>();
+        private static List<Module> modules = new List<Module>();
         public static List<Person> People
         {
             get
@@ -26,6 +27,14 @@ namespace Library.LearningManagement.Database
             {
                 return courses;
             }
+        }
+        public static List<Module> Modules
+        {
+            get
+            {
+                return modules;
+            }
+
         }
 
     }
