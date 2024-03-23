@@ -21,15 +21,11 @@ namespace MAUI.LearningManagement.ViewModels
         public string? Description { get; set; }
         public Course Course { get; set; }
 
-        public ObservableCollection<Course> Module
-        {
-            get;
+        public ObservableCollection<Module> Modules { get; set; }
 
-            set;
-            //get
-            //{
-            //   // return new ObservableCollection<Course>{CourseService.Current.Modules};
-            //}
+        public ModuleDetailViewModel()
+        {
+            Modules = new ObservableCollection<Module>();
         }
 
 

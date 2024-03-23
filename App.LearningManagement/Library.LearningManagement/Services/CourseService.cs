@@ -61,5 +61,11 @@ namespace Library.LearningManagement.Services
             return Courses.Where(a => (a != null) && a.Name.ToUpper().Contains(query.ToUpper()));
 
         }
+
+        // Function to add modules to our list
+        public void AddModules(Module module)
+        {
+            FakeDatabase.Modules.Add(module);
+        }
     }
 }
