@@ -20,6 +20,7 @@ public partial class CourseDetailView : ContentPage
         if (CourseId > 0)
         {
             BindingContext = new CourseDetailViewModel(CourseId);
+            
         }
         else
         {
@@ -28,6 +29,11 @@ public partial class CourseDetailView : ContentPage
     }
 
     // BUTTON FUNCTIONS
+    private async void ViewModulesClicked(object sender, EventArgs e)
+    {
+        // Navigate to ModuleListView passing the selected course's ID or any necessary data
+        await Navigation.PushAsync(new ModuleDetailView());
+    }
     private void CancelClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//Instructor");

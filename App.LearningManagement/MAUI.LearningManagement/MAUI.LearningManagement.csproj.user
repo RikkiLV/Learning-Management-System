@@ -12,6 +12,9 @@
     <MauiXaml Update="Views\InstructorView.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>
+    <MauiXaml Update="Views\ModuleDetailView.xaml">
+      <SubType>Designer</SubType>
+    </MauiXaml>
     <MauiXaml Update="Views\PersonDetailView.xaml">
       <SubType>Designer</SubType>
     </MauiXaml>

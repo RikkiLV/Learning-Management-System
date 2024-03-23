@@ -93,6 +93,7 @@ namespace MAUI.LearningManagement.ViewModels
             NotifyPropertyChanged("IsCoursesVisible");
         }
 
+
         // ENROLLMENTS functions
         public void AddEnrollmentClick(Shell s)
         {
