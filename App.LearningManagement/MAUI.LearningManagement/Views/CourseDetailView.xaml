@@ -52,7 +52,23 @@
             Text="{Binding Path=Description, Mode=TwoWay}"
             Grid.Row="1"
             Grid.Column="0"></Entry>    
-        
+        <!--MODULES-->
+        <Label 
+            Text="Modules"
+            VerticalOptions="Center" 
+            HorizontalOptions="Start" />
+        <ListView ItemsSource="{Binding Modules}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <HorizontalStackLayout>
+                            <Label Text="{Binding Name}" />
+                            <Label Text="{Binding Description}" />
+                        </HorizontalStackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <!--STUDENT ROSTER-->
         <Grid>
             <Grid.ColumnDefinitions>
@@ -61,15 +77,12 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Label Text="Not Enrolled" Grid.Column="0"></Label>
-            <!--MODULES-->
-            <Button IsVisible="{Binding IsModulesVisible}"
-                 Text="View Modules"
-                 Clicked="ViewModulesClicked"
-                 HorizontalOptions="Center"
-                 Grid.Column="1"
-             />
-            <Label Text="Enrolled" Grid.Column="2"></Label>
-        </Grid> 
+        </Grid>
+
+        <Button Text="Add Module"
+                Clicked="AddModuleClick"
+                IsVisible="{Binding IsModulesVisible}"
+        />
         <Button Text="Ok"
                 Clicked="OkClicked"
                 />
