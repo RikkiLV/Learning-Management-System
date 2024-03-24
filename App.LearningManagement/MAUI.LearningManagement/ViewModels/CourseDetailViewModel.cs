@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -23,8 +24,21 @@ namespace MAUI.LearningManagement.ViewModels
         }
 
         private Course course;
+        public string? ModuleName { get; set; }
+        public string? ModuleDescription { get; set; }
+
+
+        public ObservableCollection<Module> Modules
+        {
+            get
+            {
+                return new ObservableCollection<Module>(CourseService.Current.Modules);
+            }
+        }
+
 
         private bool isEditingCourse;
+
 
         // Property to track whether the user is editing a course
         public bool IsEditingCourse
@@ -100,6 +114,17 @@ namespace MAUI.LearningManagement.ViewModels
 
             }
             Shell.Current.GoToAsync("//Instructor");
+        }
+
+        public void AddModuleClick(Shell s)
+        {
+            s.GoToAsync("//ModuleDetail");
+        }
+
+        public void RefreshView()
+        {
+            NotifyPropertyChanged(nameof(Module));
+
         }
 
     }

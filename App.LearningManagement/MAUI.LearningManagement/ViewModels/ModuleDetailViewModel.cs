@@ -6,10 +6,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Android.Telecom;
 using Library.LearningManagement.Models;
 using Library.LearningManagement.Services;
-using static Android.Provider.Contacts;
 
 namespace MAUI.LearningManagement.ViewModels
 {
@@ -19,15 +17,15 @@ namespace MAUI.LearningManagement.ViewModels
         // DECLARATIONS
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public Course Course { get; set; }
 
-        public ObservableCollection<Module> Modules { get; set; }
 
-        public ModuleDetailViewModel()
+        public ObservableCollection<Module> Modules
         {
-            Modules = new ObservableCollection<Module>();
+            get
+            {
+                return new ObservableCollection<Module>(CourseService.Current.Modules);
+            }
         }
-
 
         // EVENT HANDLER 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -38,16 +36,14 @@ namespace MAUI.LearningManagement.ViewModels
 
         }
 
-        public void AddModuleClick(Shell s)
+        public void AddModules()
         {
-            s.GoToAsync("ModuleDetail");
+
+            CourseService.Current.AddModules(new Module { Name = Name, Description = Description });
+            Shell.Current.GoToAsync("//CourseDetail");
+
         }
 
 
-        public void RefreshView()
-        {
-            NotifyPropertyChanged(nameof(Module));
-
-        }
     }
 }

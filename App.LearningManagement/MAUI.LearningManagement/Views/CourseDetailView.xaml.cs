@@ -29,14 +29,17 @@ public partial class CourseDetailView : ContentPage
     }
 
     // BUTTON FUNCTIONS
-    private async void ViewModulesClicked(object sender, EventArgs e)
-    {
-        // Navigate to ModuleListView passing the selected course's ID or any necessary data
-        await Navigation.PushAsync(new ModuleDetailView());
-    }
+    
     private void CancelClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//Instructor");
+    }
+
+    private async void AddModuleClick(object sender, EventArgs e)
+    {
+        // Navigate to ModuleListView passing the selected course's ID or any necessary data
+        //await Navigation.PushAsync(new ModuleDetailView());
+        (BindingContext as CourseDetailViewModel).AddModuleClick(Shell.Current);
     }
 
     private void OkClicked(object sender, EventArgs e)

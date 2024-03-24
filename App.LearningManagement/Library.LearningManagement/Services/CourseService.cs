@@ -19,6 +19,13 @@ namespace Library.LearningManagement.Services
                 return FakeDatabase.Courses.Where(c => c is Course).Select(c => c as Course);
             }
         }
+        public IEnumerable<Module?> Modules
+        {
+            get
+            {
+                return FakeDatabase.Modules.Where(m => m is Module).Select(m => m as Module);
+            }
+        }
 
         public static CourseService Current
         {
