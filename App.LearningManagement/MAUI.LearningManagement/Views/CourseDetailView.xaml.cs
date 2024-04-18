@@ -3,6 +3,7 @@ using MAUI.LearningManagement.ViewModels;
 namespace MAUI.LearningManagement.Views;
 
 [QueryProperty(nameof(CourseId), "courseId")]
+
 public partial class CourseDetailView : ContentPage
 {
 
@@ -11,6 +12,7 @@ public partial class CourseDetailView : ContentPage
 	{
 		InitializeComponent();
     }
+
     public int CourseId { set; get; }
 
     // ALLOWS SELECTED SEARCH to fill to edit
@@ -29,22 +31,24 @@ public partial class CourseDetailView : ContentPage
     }
 
     // BUTTON FUNCTIONS
-    
+
+    private async void AddModule(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDetailViewModel).AddModules();
+
+    }
+
+
     private void CancelClicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//Instructor");
     }
 
-    private async void AddModuleClick(object sender, EventArgs e)
-    {
-        // Navigate to ModuleListView passing the selected course's ID or any necessary data
-        //await Navigation.PushAsync(new ModuleDetailView());
-        (BindingContext as CourseDetailViewModel).AddModuleClick(Shell.Current);
-    }
 
     private void OkClicked(object sender, EventArgs e)
     {
         (BindingContext as CourseDetailViewModel).AddCourse();
+    
     }
 
     // ROUTE NAVIGATION 
