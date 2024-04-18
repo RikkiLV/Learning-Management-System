@@ -38,6 +38,11 @@ public partial class CourseDetailView : ContentPage
 
     }
 
+    private async void AddAssignment(object sender, EventArgs e)
+    {
+        (BindingContext as CourseDetailViewModel).AddAssignment();
+
+    }
 
     private void CancelClicked(object sender, EventArgs e)
     {
