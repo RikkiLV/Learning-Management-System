@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
 using Library.LearningManagement.Models;
@@ -18,12 +19,17 @@ namespace MAUI.LearningManagement.ViewModels
         public string Name { get; set; }
         public string Description { get; set; }
         public string Prefix { get; set; }
+
         public string CourseCode
         {
             get => course?.Code ?? string.Empty;
         }
 
         private Course course;
+        public Course SelectedModules { get; set; }
+
+
+        // DECLARATIONS
         public string? ModuleName { get; set; }
         public string? ModuleDescription { get; set; }
 
@@ -32,44 +38,39 @@ namespace MAUI.LearningManagement.ViewModels
         {
             get
             {
-                return new ObservableCollection<Module>(CourseService.Current.Modules);
-            }
-        }
-
-
-        private bool isEditingCourse;
-
-
-        // Property to track whether the user is editing a course
-        public bool IsEditingCourse
-        {
-            get => isEditingCourse;
-            set
-            {
-                if (isEditingCourse != value)
+                // Filter modules based on the current course
+                if (Id > 0)
                 {
-                    isEditingCourse = value;
-                    NotifyPropertyChanged();
+                    // Retrieve the current course
+                    var currentCourse = CourseService.Current.GetById(Id) as Course;
+
+                    // Return modules associated with the current course
+                    return new ObservableCollection<Module>(currentCourse.Modules);
+                }
+                else
+                {
+                    // Return an empty collection if no course is selected
+                    return new ObservableCollection<Module>();
                 }
             }
         }
 
-        // Property to control the visibility of module-related UI elements
-        public bool IsModulesVisible => IsEditingCourse;
-
-
+      
 
         // COURSE ID handler to load existing course from the DB
         public CourseDetailViewModel(int id = 0)
         {
-            if (id > 0) { LoadById(id); };
+            if (id > 0) 
+            { 
+                LoadById(id); 
+
+            };
         }
 
         public void LoadById(int id)
         {
             if (id == 0) 
             {
-                IsEditingCourse = false;
                 return; 
             }
             var course = CourseService.Current.GetById(id) as Course;
@@ -79,7 +80,9 @@ namespace MAUI.LearningManagement.ViewModels
                 Name = course.Name;
                 Id = course.Id;
                 Description = course.Description;
-                IsEditingCourse = true;
+                ModuleName = course.Modules?.FirstOrDefault()?.Name;
+                ModuleDescription = course.Modules?.FirstOrDefault()?.Description ?? string.Empty;
+
 
 
             }
@@ -87,8 +90,12 @@ namespace MAUI.LearningManagement.ViewModels
             NotifyPropertyChanged(nameof(Name));
             NotifyPropertyChanged(nameof(Prefix));
             NotifyPropertyChanged(nameof(Description));
+            NotifyPropertyChanged(nameof(ModuleName));
+            NotifyPropertyChanged(nameof(ModuleDescription));
+
 
         }
+
 
 
         // EVENT HANDLER
@@ -99,10 +106,12 @@ namespace MAUI.LearningManagement.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+      
         // ADD FUNCTION for courses
         public void AddCourse()
         {
             if (Id <= 0) {
+
                 CourseService.Current.Add(new Course { Prefix = Prefix, Name = Name, Description = Description });
             }
             else
@@ -116,16 +125,32 @@ namespace MAUI.LearningManagement.ViewModels
             Shell.Current.GoToAsync("//Instructor");
         }
 
-        public void AddModuleClick(Shell s)
-        {
-            s.GoToAsync("//ModuleDetail");
-        }
 
-        public void RefreshView()
-        {
-            NotifyPropertyChanged(nameof(Module));
 
+        // ADD FUNCTION for modules
+        public void AddModules()
+        {
+            // Use ModuleName and ModuleDescription properties
+            Module newModule = new Module { Name = ModuleName, Description = ModuleDescription };
+
+            // Associate the module with the current course
+            if (Id > 0)
+            {
+                var currentCourse = CourseService.Current.GetById(Id) as Course;
+                if (currentCourse != null)
+                {
+                    currentCourse.Modules.Add(newModule);
+                }
+            }
+
+            // Clear the inputs
+            ModuleName = "";
+            ModuleDescription = "";
+
+            // Refresh the Modules collection
+            NotifyPropertyChanged(nameof(Modules));
         }
+        
 
     }
 }

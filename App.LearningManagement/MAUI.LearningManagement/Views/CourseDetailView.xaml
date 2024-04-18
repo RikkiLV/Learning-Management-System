@@ -51,24 +51,55 @@
         <Entry 
             Text="{Binding Path=Description, Mode=TwoWay}"
             Grid.Row="1"
-            Grid.Column="0"></Entry>    
-        <!--MODULES-->
-        <Label 
-            Text="Modules"
-            VerticalOptions="Center" 
-            HorizontalOptions="Start" />
-        <ListView ItemsSource="{Binding Modules}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <HorizontalStackLayout>
-                            <Label Text="{Binding Name}" />
-                            <Label Text="{Binding Description}" />
-                        </HorizontalStackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+            Grid.Column="0"></Entry>
+
+        <!-- Add Module section -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label 
+                Text="Module Name"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                Grid.Row="0"
+                Grid.Column="0"
+            />
+            <Entry 
+                Text="{Binding Path=ModuleName, Mode=TwoWay}"
+                Grid.Row="1"
+                Grid.Column="0"
+            ></Entry>
+            <Label 
+                Text="Module Description"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                Grid.Row="0"
+                Grid.Column="1"/>
+            <Entry 
+                Text="{Binding Path=ModuleDescription, Mode=TwoWay}"
+                Grid.Row="1"
+                Grid.Column="1"
+            ></Entry>
+
+        </Grid>
+        
+        <!-- Display Modules -->
+        <Label Text="Modules" VerticalOptions="Center" HorizontalOptions="Start" />
+        <ListView ItemsSource="{Binding Modules}" 
+                  SelectedItem="{Binding SelectedModule, Mode=TwoWay}">
+            
         </ListView>
+        
+        <Button Text="Add Module" 
+                Clicked="AddModule" 
+                />
+        
         <!--STUDENT ROSTER-->
         <Grid>
             <Grid.ColumnDefinitions>
@@ -79,10 +110,6 @@
             <Label Text="Not Enrolled" Grid.Column="0"></Label>
         </Grid>
 
-        <Button Text="Add Module"
-                Clicked="AddModuleClick"
-                IsVisible="{Binding IsModulesVisible}"
-        />
         <Button Text="Ok"
                 Clicked="OkClicked"
                 />
