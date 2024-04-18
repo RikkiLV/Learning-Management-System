@@ -25,7 +25,7 @@ namespace Library.LearningManagement.Models
 
         public override string ToString()
         {
-            return $"({Id} ({DueDate}) {Name}";
+            return $"{Name}: ({DueDate}) ";
         }
     }
 }

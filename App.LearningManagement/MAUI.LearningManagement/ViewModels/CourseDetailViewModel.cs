@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Library.LearningManagement.Models;
 using Library.LearningManagement.Services;
+using Microsoft.VisualBasic;
 
 namespace MAUI.LearningManagement.ViewModels
 {
@@ -27,11 +28,17 @@ namespace MAUI.LearningManagement.ViewModels
 
         private Course course;
         public Course SelectedModules { get; set; }
+        public Course SelectedAssignment { get; set; }
 
 
         // DECLARATIONS
         public string? ModuleName { get; set; }
         public string? ModuleDescription { get; set; }
+
+        public string? AssignmentName { get; set; }
+        public string? AssignmentDescription { get; set; }
+        public decimal TotalAvailablePoints { get; set; }
+        public DateTime AssignmentDueDate { get; set; }
 
 
         public ObservableCollection<Module> Modules
@@ -55,7 +62,28 @@ namespace MAUI.LearningManagement.ViewModels
             }
         }
 
-      
+        public ObservableCollection<Assignment> Assignments
+        {
+            get
+            {
+                // Filter assignments based on the current course
+                if (Id > 0)
+                {
+                    // Retrieve the current course
+                    var currentCourse = CourseService.Current.GetById(Id) as Course;
+
+                    // Return assignments associated with the current course
+                    return new ObservableCollection<Assignment>(currentCourse.Assignments);
+                }
+                else
+                {
+                    // Return an empty collection if no course is selected
+                    return new ObservableCollection<Assignment>();
+                }
+            }
+        }
+
+
 
         // COURSE ID handler to load existing course from the DB
         public CourseDetailViewModel(int id = 0)
@@ -150,7 +178,43 @@ namespace MAUI.LearningManagement.ViewModels
             // Refresh the Modules collection
             NotifyPropertyChanged(nameof(Modules));
         }
-        
+
+        // ADD FUNCTION for assignments
+        public void AddAssignment()
+        {
+            // Use AssignmentName, AssignmentDescription, etc. properties
+            Assignment newAssignment = new Assignment
+            {
+                Name = AssignmentName,
+                Description = AssignmentDescription,
+                TotalAvailablePoints = TotalAvailablePoints,
+                DueDate = AssignmentDueDate
+            };
+
+            // Associate the assignment with the current course
+            if (Id > 0)
+            {
+                var currentCourse = CourseService.Current.GetById(Id) as Course;
+                if (currentCourse != null)
+                {
+                    // Add the assignment to a default assignment group for now
+                    if (currentCourse.AssignmentGroups.Count == 0)
+                    {
+                        currentCourse.AssignmentGroups.Add(new AssignmentGroup());
+                    }
+                    currentCourse.AssignmentGroups[0].Assignments.Add(newAssignment);
+                }
+            }
+
+            // Clear the inputs
+            AssignmentName = "";
+            AssignmentDescription = "";
+            TotalAvailablePoints = 0;
+            AssignmentDueDate = DateTime.Today;
+
+            // Refresh the assignments collection
+            NotifyPropertyChanged(nameof(Assignments));
+        }
 
     }
 }

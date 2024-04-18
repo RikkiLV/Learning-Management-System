@@ -7,115 +7,192 @@
              NavigatedFrom="OnLeaving"
              NavigatedTo="OnArriving"
              >
-    <VerticalStackLayout>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="8*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Label 
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label 
                 Text="Prefix"
                 VerticalOptions="Center" 
                 HorizontalOptions="Start" 
                 Grid.Row="0"
                 Grid.Column="0"
                 />
-            <Entry 
+                <Entry 
                 Text="{Binding Path=Prefix, Mode=TwoWay}"
                 Grid.Row="1"
                 Grid.Column="0"
                 ></Entry>
-            <Label 
+                <Label 
                 Text="Name"
                 VerticalOptions="Center" 
                 HorizontalOptions="Start" 
                 Grid.Row="0"
                 Grid.Column="1"/>
-            <Entry 
+                <Entry 
                 Text="{Binding Path=Name, Mode=TwoWay}"
                 Grid.Row="1"
                 Grid.Column="1"></Entry>
-             
-        </Grid>
 
-        <Label 
+            </Grid>
+
+            <Label 
             Text="Description"
             VerticalOptions="Center" 
             HorizontalOptions="Start" 
             Grid.Row="0"
             Grid.Column="0"/>
-        <Entry 
+            <Entry 
             Text="{Binding Path=Description, Mode=TwoWay}"
             Grid.Row="1"
             Grid.Column="0"></Entry>
 
-        <!-- Add Module section -->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="8*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Label 
+            <!-- Add Module section -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label 
                 Text="Module Name"
                 VerticalOptions="Center" 
                 HorizontalOptions="Start" 
                 Grid.Row="0"
                 Grid.Column="0"
             />
-            <Entry 
+                <Entry 
                 Text="{Binding Path=ModuleName, Mode=TwoWay}"
                 Grid.Row="1"
                 Grid.Column="0"
             ></Entry>
-            <Label 
+                <Label 
                 Text="Module Description"
                 VerticalOptions="Center" 
                 HorizontalOptions="Start" 
                 Grid.Row="0"
                 Grid.Column="1"/>
-            <Entry 
+                <Entry 
                 Text="{Binding Path=ModuleDescription, Mode=TwoWay}"
                 Grid.Row="1"
                 Grid.Column="1"
             ></Entry>
 
-        </Grid>
-        
-        <!-- Display Modules -->
-        <Label Text="Modules" VerticalOptions="Center" HorizontalOptions="Start" />
-        <ListView ItemsSource="{Binding Modules}" 
+            </Grid>
+
+            <!-- Display Modules -->
+            <Label Text="Modules" VerticalOptions="Center" HorizontalOptions="Start" />
+            <ListView ItemsSource="{Binding Modules}" 
                   SelectedItem="{Binding SelectedModule, Mode=TwoWay}">
-            
-        </ListView>
-        
-        <Button Text="Add Module" 
+
+            </ListView>
+
+            <Button Text="Add Module" 
                 Clicked="AddModule" 
                 />
-        
-        <!--STUDENT ROSTER-->
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Label Text="Not Enrolled" Grid.Column="0"></Label>
-        </Grid>
 
-        <Button Text="Ok"
+            <!-- Add Assignment section -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label 
+                Text="Assignment Name"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                Grid.Row="0"
+                Grid.Column="0"
+            />
+                <Entry 
+                Text="{Binding Path=AssignmentName, Mode=TwoWay}"
+                Grid.Row="1"
+                Grid.Column="0"
+            ></Entry>
+                <Label 
+                Text="Assignment Description"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                Grid.Row="0"
+                Grid.Column="1"/>
+                <Entry 
+                Text="{Binding Path=AssignmentDescription, Mode=TwoWay}"
+                Grid.Row="1"
+                Grid.Column="1"
+            ></Entry>
+
+                <!-- New fields for due date and total points -->
+                <Label 
+                Text="Due Date"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                Grid.Row="2"
+                Grid.Column="0"
+            />
+                <DatePicker 
+                Date="{Binding Path=AssignmentDueDate, Mode=TwoWay}"
+                Grid.Row="3"
+                Grid.Column="0"
+            ></DatePicker>
+                <Label 
+                Text="Total Points"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                Grid.Row="2"
+                Grid.Column="1"/>
+                <Entry 
+                Text="{Binding Path=TotalAvailablePoints, Mode=TwoWay}"
+                Grid.Row="3"
+                Grid.Column="1"
+                Keyboard="Numeric"
+            ></Entry>
+
+            </Grid>
+
+            <!-- Display Assignments -->
+            <Label Text="Assignments" VerticalOptions="Center" HorizontalOptions="Start" />
+            <ListView ItemsSource="{Binding Assignments}" 
+                  SelectedItem="{Binding SelectedAssignment, Mode=TwoWay}">
+
+            </ListView>
+
+            <Button Text="Add Assignment" 
+                Clicked="AddAssignment" 
+                />
+
+            <!--STUDENT ROSTER-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Not Enrolled" Grid.Column="0"></Label>
+            </Grid>
+
+            <Button Text="Ok"
                 Clicked="OkClicked"
                 />
-        <Button Text="Cancel"
+            <Button Text="Cancel"
                 Clicked="CancelClicked"
                 />
 
-    </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
