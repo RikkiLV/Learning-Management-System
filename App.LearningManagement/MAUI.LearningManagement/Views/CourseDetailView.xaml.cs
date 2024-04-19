@@ -1,3 +1,6 @@
+using System.Collections.ObjectModel;
+using Library.LearningManagement.Database;
+using Library.LearningManagement.Models;
 using MAUI.LearningManagement.ViewModels;
 
 namespace MAUI.LearningManagement.Views;
@@ -14,6 +17,7 @@ public partial class CourseDetailView : ContentPage
     }
 
     public int CourseId { set; get; }
+
 
     // ALLOWS SELECTED SEARCH to fill to edit
     protected override void OnAppearing()
@@ -43,6 +47,14 @@ public partial class CourseDetailView : ContentPage
         (BindingContext as CourseDetailViewModel).AddAssignment();
 
     }
+
+    private async void AddRoster(object sender, EventArgs e)
+    {
+    }
+    private async void RemoveRoster(object sender, EventArgs e)
+    {
+    }
+
 
     private void CancelClicked(object sender, EventArgs e)
     {

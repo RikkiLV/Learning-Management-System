@@ -91,7 +91,9 @@
             </Grid>
 
             <!-- Display Modules -->
-            <Label Text="Modules" VerticalOptions="Center" HorizontalOptions="Start" />
+            <Label Text="Modules" 
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start" />
             <ListView ItemsSource="{Binding Modules}" 
                   SelectedItem="{Binding SelectedModule, Mode=TwoWay}">
 
@@ -166,7 +168,9 @@
             </Grid>
 
             <!-- Display Assignments -->
-            <Label Text="Assignments" VerticalOptions="Center" HorizontalOptions="Start" />
+            <Label Text="Assignments" 
+                   VerticalOptions="Center" 
+                   HorizontalOptions="Start" />
             <ListView ItemsSource="{Binding Assignments}" 
                   SelectedItem="{Binding SelectedAssignment, Mode=TwoWay}">
 
@@ -183,9 +187,35 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Label Text="Not Enrolled" Grid.Column="0"></Label>
+                <!-- Display Enrolled Students -->
+                <Label Text="Enrolled Students" 
+                       VerticalOptions="Center"
+                       HorizontalOptions="Start" />
+                <ListView  ItemsSource="{Binding Enrollments}" SelectedItem="{Binding SelectedEnrollment, Mode=Multiple}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Student.Name}" Detail="{Binding Course.Name}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
+                <!-- Add Student Button -->
+                <Button Text="Add Student" 
+                Clicked="AddRoster"
+                Grid.Column="0" />
+
+                <!-- Remove Student Button -->
+                <Button Text="Remove Student" 
+                Clicked="RemoveRoster"
+                Grid.Column="1" />
+            </Grid>
+            
             <Button Text="Ok"
                 Clicked="OkClicked"
                 />

@@ -26,6 +26,13 @@ namespace Library.LearningManagement.Services
                 return FakeDatabase.Modules.Where(m => m is Module).Select(m => m as Module);
             }
         }
+        public IEnumerable<Assignment?> Assignments
+        {
+            get
+            {
+                return FakeDatabase.Assignments.Where(a => a is Assignment).Select(a => a as Assignment);
+            }
+        }
 
         public static CourseService Current
         {
@@ -74,7 +81,13 @@ namespace Library.LearningManagement.Services
         {
             FakeDatabase.Modules.Add(module);
         }
-        
+
+        // Function to add modules to our list
+        public void AddAssignment(Assignment assignment)
+        {
+            FakeDatabase.Assignments.Add(assignment);
+        }
+
 
     }
 }

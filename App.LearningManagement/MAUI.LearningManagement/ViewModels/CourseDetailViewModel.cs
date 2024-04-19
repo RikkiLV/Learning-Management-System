@@ -31,7 +31,6 @@ namespace MAUI.LearningManagement.ViewModels
         public Course SelectedAssignment { get; set; }
 
 
-        // DECLARATIONS
         public string? ModuleName { get; set; }
         public string? ModuleDescription { get; set; }
 
@@ -88,18 +87,18 @@ namespace MAUI.LearningManagement.ViewModels
         // COURSE ID handler to load existing course from the DB
         public CourseDetailViewModel(int id = 0)
         {
-            if (id > 0) 
-            { 
-                LoadById(id); 
+            if (id > 0)
+            {
+                LoadById(id);
 
             };
         }
 
         public void LoadById(int id)
         {
-            if (id == 0) 
+            if (id == 0)
             {
-                return; 
+                return;
             }
             var course = CourseService.Current.GetById(id) as Course;
             if (course != null)
@@ -108,9 +107,6 @@ namespace MAUI.LearningManagement.ViewModels
                 Name = course.Name;
                 Id = course.Id;
                 Description = course.Description;
-                ModuleName = course.Modules?.FirstOrDefault()?.Name;
-                ModuleDescription = course.Modules?.FirstOrDefault()?.Description ?? string.Empty;
-
 
 
             }
@@ -118,12 +114,9 @@ namespace MAUI.LearningManagement.ViewModels
             NotifyPropertyChanged(nameof(Name));
             NotifyPropertyChanged(nameof(Prefix));
             NotifyPropertyChanged(nameof(Description));
-            NotifyPropertyChanged(nameof(ModuleName));
-            NotifyPropertyChanged(nameof(ModuleDescription));
 
 
         }
-
 
 
         // EVENT HANDLER
@@ -134,11 +127,12 @@ namespace MAUI.LearningManagement.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-      
+
         // ADD FUNCTION for courses
         public void AddCourse()
         {
-            if (Id <= 0) {
+            if (Id <= 0)
+            {
 
                 CourseService.Current.Add(new Course { Prefix = Prefix, Name = Name, Description = Description });
             }
@@ -214,6 +208,15 @@ namespace MAUI.LearningManagement.ViewModels
 
             // Refresh the assignments collection
             NotifyPropertyChanged(nameof(Assignments));
+        }
+
+        public void AddRoster()
+        {
+           
+        }
+        public void RemoveRoster()
+        {
+
         }
 
     }
